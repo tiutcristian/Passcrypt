@@ -43,5 +43,6 @@ public slots:
     void databasePressed();
     void createNewPressed();
     void helpPressed();
+    void editPressed();
 };
 #endif // MAINWINDOW_H

@@ -3,6 +3,7 @@
 #include "logindialog.h"
 #include "signupdialog.h"
 #include "generate.h"
+#include "editpass.h"
 #include <fstream>
 #include <iostream>
 #include <QStyle>
@@ -29,6 +30,7 @@ void MainWindow::connectComponents()
     connect(ui->newButton, SIGNAL(pressed()), this, SLOT(createNewPressed()));
     connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
+    connect(ui->pushButton, SIGNAL(pressed()), this, SLOT(editPressed()));
 }
 
 void MainWindow::buttonStyle()
@@ -185,4 +187,10 @@ void MainWindow::helpPressed()
 {
     uncheckAllButtons(ui->leftMenuContainer);
     ui->stackedWidget->setCurrentWidget(ui->helpPage);
+}
+
+void MainWindow::editPressed()
+{
+    EditPass edit(this);
+    edit.show();
 }

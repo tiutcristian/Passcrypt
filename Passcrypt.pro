@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     database.cpp \
+    editpass.cpp \
     encrypt.cpp \
     generate.cpp \
     logindialog.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 
 HEADERS += \
     database.h \
+    editpass.h \
     encrypt.h \
     generate.h \
     logindialog.h \
@@ -28,6 +30,7 @@ HEADERS += \
     signupdialog.h
 
 FORMS += \
+    editpass.ui \
     generate.ui \
     logindialog.ui \
     mainwindow.ui \
