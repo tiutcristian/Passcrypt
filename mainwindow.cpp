@@ -15,6 +15,8 @@
 
 void MainWindow::initialDialog()
 {
+    int a = 2;
+    a++;
     std::ifstream fin("database.txt");
     if(fin)
         ld.show();
