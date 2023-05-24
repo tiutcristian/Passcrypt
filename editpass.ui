@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>530</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>350</width>
-    <height>530</height>
+    <height>600</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>350</width>
-    <height>530</height>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -32,6 +32,7 @@
 
 QLabel{
 	color: rgb(220, 220, 220);
+	font-family: Segoe UI;
 }
 </string>
   </property>
@@ -56,6 +57,7 @@ QLabel{
        <widget class="QLabel" name="titleLabel">
         <property name="font">
          <font>
+          <family>Segoe UI</family>
           <pointsize>15</pointsize>
          </font>
         </property>
@@ -68,7 +70,7 @@ QLabel{
        </widget>
       </item>
       <item>
-       <spacer name="rightSpacer_2">
+       <spacer name="rightSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -108,6 +110,7 @@ QLabel{
       </property>
       <property name="font">
        <font>
+        <family>Segoe UI</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -356,18 +359,20 @@ border-radius: 20px;</string>
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>12</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit{
-		color: rgb(153, 234, 255);
-        border: no-border;
-    }
+	color: rgb(153, 234, 255);
+	border: no-border;
+	font-family: Segoe UI;
+}
 
-    QLineEdit[text=&quot;&quot;]{
-        color: rgba(153, 234, 255, 60);
-    }</string>
+QLineEdit[text=&quot;&quot;]{
+	 color: rgba(153, 234, 255, 60);
+}</string>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Normal</enum>
@@ -396,6 +401,7 @@ border-radius: 20px;</string>
       </property>
       <property name="font">
        <font>
+        <family>Segoe UI</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -644,18 +650,20 @@ border-radius: 20px;</string>
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>12</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit{
-		color: rgb(153, 234, 255);
-        border: no-border;
-    }
+	color: rgb(153, 234, 255);
+	border: no-border;
+	font-family: Segoe UI;
+}
 
-    QLineEdit[text=&quot;&quot;]{
-        color: rgba(153, 234, 255, 60);
-    }</string>
+QLineEdit[text=&quot;&quot;]{
+	 color: rgba(153, 234, 255, 60);
+}</string>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Normal</enum>
@@ -684,6 +692,7 @@ border-radius: 20px;</string>
       </property>
       <property name="font">
        <font>
+        <family>Segoe UI</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -696,7 +705,7 @@ border-radius: 20px;</string>
        <rect>
         <x>10</x>
         <y>365</y>
-        <width>61</width>
+        <width>81</width>
         <height>21</height>
        </rect>
       </property>
@@ -708,6 +717,7 @@ border-radius: 20px;</string>
       </property>
       <property name="font">
        <font>
+        <family>Segoe UI</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -737,6 +747,9 @@ border-radius: 20px;</string>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLineEdit" name="passwordLineEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="minimumSize">
           <size>
            <width>200</width>
@@ -748,7 +761,7 @@ border-radius: 20px;</string>
            <active>
             <colorrole role="WindowText">
              <brush brushstyle="SolidPattern">
-              <color alpha="60">
+              <color alpha="255">
                <red>153</red>
                <green>234</green>
                <blue>255</blue>
@@ -766,7 +779,7 @@ border-radius: 20px;</string>
             </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
-              <color alpha="60">
+              <color alpha="255">
                <red>153</red>
                <green>234</green>
                <blue>255</blue>
@@ -775,7 +788,7 @@ border-radius: 20px;</string>
             </colorrole>
             <colorrole role="ButtonText">
              <brush brushstyle="SolidPattern">
-              <color alpha="60">
+              <color alpha="255">
                <red>153</red>
                <green>234</green>
                <blue>255</blue>
@@ -813,7 +826,7 @@ border-radius: 20px;</string>
            <inactive>
             <colorrole role="WindowText">
              <brush brushstyle="SolidPattern">
-              <color alpha="60">
+              <color alpha="255">
                <red>153</red>
                <green>234</green>
                <blue>255</blue>
@@ -831,7 +844,7 @@ border-radius: 20px;</string>
             </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
-              <color alpha="60">
+              <color alpha="255">
                <red>153</red>
                <green>234</green>
                <blue>255</blue>
@@ -840,7 +853,7 @@ border-radius: 20px;</string>
             </colorrole>
             <colorrole role="ButtonText">
              <brush brushstyle="SolidPattern">
-              <color alpha="60">
+              <color alpha="255">
                <red>153</red>
                <green>234</green>
                <blue>255</blue>
@@ -878,7 +891,7 @@ border-radius: 20px;</string>
            <disabled>
             <colorrole role="WindowText">
              <brush brushstyle="SolidPattern">
-              <color alpha="60">
+              <color alpha="255">
                <red>153</red>
                <green>234</green>
                <blue>255</blue>
@@ -896,7 +909,7 @@ border-radius: 20px;</string>
             </colorrole>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
-              <color alpha="60">
+              <color alpha="255">
                <red>153</red>
                <green>234</green>
                <blue>255</blue>
@@ -905,7 +918,7 @@ border-radius: 20px;</string>
             </colorrole>
             <colorrole role="ButtonText">
              <brush brushstyle="SolidPattern">
-              <color alpha="60">
+              <color alpha="255">
                <red>153</red>
                <green>234</green>
                <blue>255</blue>
@@ -944,24 +957,25 @@ border-radius: 20px;</string>
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>12</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit{
-		color: rgb(153, 234, 255);
-        border: no-border;
-    }
-
-    QLineEdit[text=&quot;&quot;]{
-        color: rgba(153, 234, 255, 60);
-    }</string>
+	color: rgb(153, 234, 255);
+	border: no-border;
+	font-family: Segoe UI;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
          <property name="echoMode">
-          <enum>QLineEdit::Normal</enum>
+          <enum>QLineEdit::Password</enum>
          </property>
          <property name="placeholderText">
-          <string>Enter password to encrypt...</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -975,6 +989,7 @@ border-radius: 20px;</string>
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>11</pointsize>
           </font>
          </property>
@@ -986,6 +1001,7 @@ border-radius: 20px;</string>
 	border-radius: 15px;
     background-color: #34699D;
 	color: #99EAFF;
+	font-family: Segoe UI;
 }
 
 QPushButton:hover {
@@ -1051,12 +1067,14 @@ QPushButton:pressed{
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>12</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QTextEdit{
 	color: rgba(153, 234, 255, 70);
+	font-family: Segoe UI;
 }</string>
          </property>
          <property name="verticalScrollBarPolicy">
@@ -1072,6 +1090,149 @@ QPushButton:pressed{
           <string>Enter description...</string>
          </property>
         </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="bottomWidget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>470</y>
+        <width>311</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <spacer name="leftSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="saveButton">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border-radius: 15px;
+	background-color: rgb(5, 16, 32);
+	color: #99EAFF;
+	font-family: Segoe UI;
+}
+
+QPushButton:hover {
+	background-color: rgb(52, 105, 157);
+}
+
+QPushButton:pressed {
+	background-color: rgb(47, 97, 144);
+}</string>
+         </property>
+         <property name="text">
+          <string>Save</string>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>14</width>
+           <height>14</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="middleSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteButton">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border-radius: 15px;
+	background-color: rgb(5, 16, 32);
+	color: #99EAFF;
+	font-family: Segoe UI;
+}
+
+QPushButton:hover {
+	background-color: rgb(209, 26, 42);
+	color: rgb(220, 220, 220);
+}
+
+QPushButton:pressed {
+	background-color: rgb(195, 24, 42);
+}</string>
+         </property>
+         <property name="text">
+          <string>Delete</string>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>14</width>
+           <height>14</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="rightSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

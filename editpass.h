@@ -12,8 +12,8 @@ class EditPass : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditPass(QWidget *parent = nullptr);
-    EditPass(const QString &name, const QString &id, const QString &description, const QString &password);
+    // EditPass(QWidget *parent = nullptr);
+    explicit EditPass(const QString &name, const QString &id, const QString &description, const QString &password);
     ~EditPass();
 
 private:
@@ -25,6 +25,10 @@ private:
 
     void buttonStyle();
     void connectComponents();
+    void initialState();
+
+private slots:
+    void descriptionChanged();
 };
 
 #endif // EDITPASS_H

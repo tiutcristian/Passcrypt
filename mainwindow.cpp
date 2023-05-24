@@ -195,6 +195,7 @@ void MainWindow::helpPressed()
 
 void MainWindow::editPressed()
 {
-    EditPass* editpass = new EditPass();
+    EditPass* editpass = new EditPass("name", "id", "desc", "pass");
+    //EditPass* editpass = new EditPass();
     editpass->show();
 }
