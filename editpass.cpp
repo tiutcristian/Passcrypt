@@ -20,3 +20,13 @@ EditPass::~EditPass()
 {
     delete ui;
 }
+
+void EditPass::buttonStyle()
+{
+    ;
+}
+
+void EditPass::connectComponents()
+{
+    ;
+}

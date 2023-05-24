@@ -292,5 +292,6 @@
         <file>icons/zoom-in.svg</file>
         <file>icons/zoom-out.svg</file>
         <file>icons/chevron-right (1).svg</file>
+        <file>icons/edit-2 (1).svg</file>
     </qresource>
 </RCC>

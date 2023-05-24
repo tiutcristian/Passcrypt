@@ -22,6 +22,9 @@ private:
     QString id;
     QString description;
     QString password;
+
+    void buttonStyle();
+    void connectComponents();
 };
 
 #endif // EDITPASS_H
