@@ -4,6 +4,7 @@
 #include "logindialog.h"
 #include "signupdialog.h"
 #include "database.h"
+#include "editpass.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -23,10 +24,6 @@ private:
     void buttonStyle();
     void initialState();
     void uncheckAllButtons(QObject* widget);
-    //DbEntry toDbEntry(const char name[], const char id[], const char desc[], const char pass[]);
-    //void addToDatabase(const DbEntry & elem);
-    //void getDatabase();
-    //void updateDatabaseFile();
     void updateDatabaseUI();
 
 public:

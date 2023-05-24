@@ -74,13 +74,17 @@ void MainWindow::updateDatabaseUI()
         auto idlbl = new QLabel(QString::fromStdString(crt.id));
         auto descriptionlbl = new QLabel(QString::fromStdString(crt.description));
         auto passLineEdit = new QLineEdit(QString::fromStdString(crt.pass));
+        passLineEdit->setCursorPosition(0);
         passLineEdit->setDisabled(true);
         passLineEdit->setEchoMode(QLineEdit::Password);
-        passLineEdit->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
         passhlay->addWidget(namelbl);
         passhlay->addWidget(idlbl);
         passhlay->addWidget(descriptionlbl);
         passhlay->addWidget(passLineEdit);
+        namelbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        idlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        descriptionlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        passLineEdit->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
         auto passwid = new QWidget;
         passwid->setLayout(passhlay);
         passwid->setCursor(Qt::PointingHandCursor);
@@ -191,6 +195,6 @@ void MainWindow::helpPressed()
 
 void MainWindow::editPressed()
 {
-    EditPass edit(this);
-    edit.show();
+    EditPass* editpass = new EditPass();
+    editpass->show();
 }
