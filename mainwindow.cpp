@@ -12,6 +12,7 @@
 #include <QLineEdit>
 #include <QSizePolicy>
 #include "save_pass_dialog.h"
+#include <QSignalMapper>
 
 void MainWindow::initialDialog()
 {
@@ -30,7 +31,12 @@ void MainWindow::connectComponents()
     connect(ui->newButton, SIGNAL(pressed()), this, SLOT(createNewPressed()));
     connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
-    connect(ui->pushButton, SIGNAL(pressed()), this, SLOT(editPressed()));
+    /*
+    int a = 3;
+    int b = 4;
+    connect(ui->pushButton, &QPushButton::clicked, [a, b](){
+       std::cout << a << ' ' << b << std::endl;
+    });*/
 }
 
 void MainWindow::buttonStyle()
@@ -69,33 +75,71 @@ void MainWindow::updateDatabaseUI()
     for(const auto &crt : db->entries)
     {
         isEmpty = false;
+
         auto passhlay = new QHBoxLayout;
+
         auto namelbl = new QLabel(QString::fromStdString(crt.name));
         auto idlbl = new QLabel(QString::fromStdString(crt.id));
         auto descriptionlbl = new QLabel(QString::fromStdString(crt.description));
-        auto passLineEdit = new QLineEdit(QString::fromStdString(crt.pass));
-        passLineEdit->setCursorPosition(0);
-        passLineEdit->setDisabled(true);
-        passLineEdit->setEchoMode(QLineEdit::Password);
+        auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " edit");
+        auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " delete");
+
         passhlay->addWidget(namelbl);
         passhlay->addWidget(idlbl);
         passhlay->addWidget(descriptionlbl);
-        passhlay->addWidget(passLineEdit);
+        passhlay->addWidget(editButton);
+        passhlay->addWidget(deleteButton);
+
         namelbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
         idlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
         descriptionlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-        passLineEdit->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+
+        editButton->setMinimumHeight(25);
+        editButton->setMaximumWidth(70);
+        editButton->setCursor(Qt::PointingHandCursor);
+        connect(editButton, &QPushButton::clicked, [crt](){
+            EditPass* editpass = new EditPass(QString::fromStdString(crt.name),
+                                              QString::fromStdString(crt.id),
+                                              QString::fromStdString(crt.description),
+                                              QString::fromStdString(crt.pass));
+            editpass->show();
+        });
+
+        deleteButton->setMinimumHeight(25);
+        deleteButton->setMaximumWidth(70);
+        deleteButton->setCursor(Qt::PointingHandCursor);
+
         auto passwid = new QWidget;
         passwid->setLayout(passhlay);
-        passwid->setCursor(Qt::PointingHandCursor);
         ui->passLayout->addWidget(passwid);
-        ui->passwordsSubcontainer->setStyleSheet("#passwordsSubcontainer{background-color: qlineargradient("
-                                                 "spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(57, 73, 94, 255), "
-                                                 "stop:1 rgba(68, 87, 112, 255));border-radius: 26px;}"
-                                                 "#passwordsSubcontainer QLabel{color: rgb(153, 234, 255);font: 10pt \"Segoe UI\";}"
-                                                 "#passwordsSubcontainer QWidget{border-radius: 17px;}"
-                                                 "#passwordsSubcontainer QWidget:hover{background-color: rgb(71, 91, 117);}"
-                                                 "#passwordsSubcontainer QLineEdit{color: rgb(153, 234, 255);}");
+        ui->passwordsSubcontainer->setStyleSheet("#passwordsSubcontainer{"
+                                                 "    background-color: rgb(57, 73, 94);"
+                                                 "    border-radius: 26px;"
+                                                 "}"
+                                                 ""
+                                                 "#passwordsSubcontainer QLabel{"
+                                                 "    color: rgb(153, 234, 255);"
+                                                 "    font: 10pt \"Segoe UI\";"
+                                                 "    /*qproperty-alignment: AlignCenter;*/"
+                                                 "}"
+                                                 ""
+                                                 "#passwordsSubcontainer QPushButton{"
+                                                 "    border-radius: 12px;"
+                                                 "    background-color: rgb(57, 73, 94);"
+                                                 "}"
+                                                 ""
+                                                 "#passwordsSubcontainer QPushButton:hover {"
+                                                 "    background-color: rgb(55, 113, 167);"
+                                                 "}"
+                                                 ""
+                                                 "#passwordsSubcontainer QPushButton:pressed{"
+                                                 "    background-color: #34699D;"
+                                                 "}"
+                                                 ""
+                                                 "#passwordsSubcontainer QLineEdit{"
+                                                 "    color: rgb(153, 234, 255);"
+                                                 "    /*qproperty-alignment: AlignCenter;*/"
+                                                 "}");
     }
     if(isEmpty)
     {
@@ -193,9 +237,8 @@ void MainWindow::helpPressed()
     ui->stackedWidget->setCurrentWidget(ui->helpPage);
 }
 
-void MainWindow::editPressed()
+void MainWindow::editPressed(const QString &name, const QString &id, const QString &description, const QString &password)
 {
-    EditPass* editpass = new EditPass("name", "id", "desc", "pass");
-    //EditPass* editpass = new EditPass();
+    EditPass* editpass = new EditPass(name, id, description, password);
     editpass->show();
 }

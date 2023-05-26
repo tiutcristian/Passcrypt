@@ -293,5 +293,6 @@
         <file>icons/zoom-out.svg</file>
         <file>icons/chevron-right (1).svg</file>
         <file>icons/edit-2 (1).svg</file>
+        <file>icons/trash-2-lightblue.svg</file>
     </qresource>
 </RCC>

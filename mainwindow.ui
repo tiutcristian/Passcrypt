@@ -337,7 +337,7 @@
        <item row="0" column="0">
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="homePage">
           <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -893,7 +893,7 @@ QPushButton:pressed{
                    </property>
                    <property name="styleSheet">
                     <string notr="true">#passwordsSubcontainer{
-	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(57, 73, 94, 255), stop:1 rgba(68, 87, 112, 255));
+	background-color: rgb(57, 73, 94);
 	border-radius: 26px;
 }
 
@@ -905,10 +905,6 @@ QPushButton:pressed{
 
 #passwordsSubcontainer QWidget{
 	border-radius: 17px;
-}
-
-#passwordsSubcontainer QWidget:hover{
-	background-color: rgb(71, 91, 117);
 }
 
 #passwordsSubcontainer QLineEdit{
