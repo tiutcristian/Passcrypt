@@ -102,7 +102,15 @@ void MainWindow::updateDatabaseUI()
                                               QString::fromStdString(crt.id),
                                               QString::fromStdString(crt.description),
                                               QString::fromStdString(crt.pass));
-            editpass->show();
+            editpass->exec();
+            if(editpass->toSave())
+            {
+                std::cout << "to save" << std::endl;
+                std::cout << editpass->getName().toStdString() << ' '
+                          << editpass->getID().toStdString() << ' '
+                          << editpass->getDescription().toStdString() << ' '
+                          << editpass->getPassword().toStdString() << std::endl;
+            }
         });
 
         deleteButton->setMinimumHeight(25);

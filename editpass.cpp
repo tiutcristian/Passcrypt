@@ -44,6 +44,7 @@ void EditPass::connectComponents()
     connect(ui->nameLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->nameLineEdit); });
     connect(ui->idLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->idLineEdit); });
     connect(ui->descriptionTextEdit, SIGNAL(textChanged()), this, SLOT(descriptionChanged()));
+    connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(savePressed()));
 }
 
 void EditPass::initialState()
@@ -62,4 +63,14 @@ void EditPass::descriptionChanged()
         ui->descriptionTextEdit->setStyleSheet("color: rgba(153, 234, 255, 70);");
     else
         ui->descriptionTextEdit->setStyleSheet("color: rgba(153, 234, 255, 255);");
+}
+
+void EditPass::savePressed()
+{
+    name = ui->nameLineEdit->text();
+    id = ui->idLineEdit->text();
+    description = ui->descriptionTextEdit->toPlainText();
+    password = ui->passwordLineEdit->text();
+    save = true;
+    EditPass::close();
 }
