@@ -12,14 +12,11 @@ EditPass::EditPass(QWidget *parent) :
     connectComponents();
 }
 */
-EditPass::EditPass(const QString &name, const QString &id, const QString &description, const QString &password) :
-    ui(new Ui::EditPass)
+EditPass::EditPass(const Database::Entry &entry) :
+    ui(new Ui::EditPass),
+    entry(entry)
 {
     ui->setupUi(this);
-    this->name = name;
-    this->id = id;
-    this->description = description;
-    this->password = password;
     buttonStyle();
     connectComponents();
     initialState();
@@ -49,10 +46,10 @@ void EditPass::connectComponents()
 
 void EditPass::initialState()
 {
-    ui->nameLineEdit->setText(name);
-    ui->idLineEdit->setText(id);
-    ui->descriptionTextEdit->setText(description);
-    ui->passwordLineEdit->setText(password);
+    ui->nameLineEdit->setText(QString::fromStdString(entry.title));
+    ui->idLineEdit->setText(QString::fromStdString(entry.username));
+    ui->descriptionTextEdit->setText(QString::fromStdString(entry.description));
+    ui->passwordLineEdit->setText(QString::fromStdString(entry.pass));
     setFocus(Qt::NoFocusReason);
 }
 
@@ -67,10 +64,10 @@ void EditPass::descriptionChanged()
 
 void EditPass::savePressed()
 {
-    name = ui->nameLineEdit->text();
-    id = ui->idLineEdit->text();
-    description = ui->descriptionTextEdit->toPlainText();
-    password = ui->passwordLineEdit->text();
+    entry.title = ui->nameLineEdit->text().toStdString();
+    entry.username = ui->idLineEdit->text().toStdString();
+    entry.description = ui->descriptionTextEdit->toPlainText().toStdString();
+    entry.pass = ui->passwordLineEdit->text().toStdString();
     save = true;
     EditPass::close();
 }

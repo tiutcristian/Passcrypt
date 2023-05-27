@@ -2,6 +2,7 @@
 #define EDITPASS_H
 
 #include <QDialog>
+#include "database.h"
 
 namespace Ui {
 class EditPass;
@@ -13,21 +14,15 @@ class EditPass : public QDialog
 
 public:
     // EditPass(QWidget *parent = nullptr);
-    explicit EditPass(const QString &name, const QString &id, const QString &description, const QString &password);
+    explicit EditPass(const Database::Entry &entry);
     ~EditPass();
 
-    QString getName(){ return name; }
-    QString getID(){ return id; }
-    QString getDescription(){ return description; }
-    QString getPassword(){ return password; }
+    Database::Entry getEntry(){ return entry; }
     bool toSave(){ return save; }
 
 private:
     Ui::EditPass *ui;
-    QString name;
-    QString id;
-    QString description;
-    QString password;
+    Database::Entry entry;
     bool save;
 
     void buttonStyle();

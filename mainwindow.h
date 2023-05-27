@@ -25,6 +25,7 @@ private:
     void initialState();
     void uncheckAllButtons(QObject* widget);
     void updateDatabaseUI();
+    void openEditPass(Database::Entry &entry);
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -40,6 +41,5 @@ public slots:
     void databasePressed();
     void createNewPressed();
     void helpPressed();
-    void editPressed(const QString &name, const QString &id, const QString &description, const QString &password);
 };
 #endif // MAINWINDOW_H

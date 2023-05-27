@@ -12,7 +12,7 @@
 #include <QLineEdit>
 #include <QSizePolicy>
 #include "save_pass_dialog.h"
-#include <QSignalMapper>
+#include "constants.h"
 
 void MainWindow::initialDialog()
 {
@@ -72,14 +72,14 @@ void MainWindow::updateDatabaseUI()
 {
     clearLayout(ui->passLayout);
     bool isEmpty = true;
-    for(const auto &crt : db->entries)
+    for(auto &crt : db->entries)
     {
         isEmpty = false;
 
         auto passhlay = new QHBoxLayout;
 
-        auto namelbl = new QLabel(QString::fromStdString(crt.name));
-        auto idlbl = new QLabel(QString::fromStdString(crt.id));
+        auto namelbl = new QLabel(QString::fromStdString(crt.title));
+        auto idlbl = new QLabel(QString::fromStdString(crt.username));
         auto descriptionlbl = new QLabel(QString::fromStdString(crt.description));
         auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " edit");
         auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " delete");
@@ -97,20 +97,8 @@ void MainWindow::updateDatabaseUI()
         editButton->setMinimumHeight(25);
         editButton->setMaximumWidth(70);
         editButton->setCursor(Qt::PointingHandCursor);
-        connect(editButton, &QPushButton::clicked, [crt](){
-            EditPass* editpass = new EditPass(QString::fromStdString(crt.name),
-                                              QString::fromStdString(crt.id),
-                                              QString::fromStdString(crt.description),
-                                              QString::fromStdString(crt.pass));
-            editpass->exec();
-            if(editpass->toSave())
-            {
-                std::cout << "to save" << std::endl;
-                std::cout << editpass->getName().toStdString() << ' '
-                          << editpass->getID().toStdString() << ' '
-                          << editpass->getDescription().toStdString() << ' '
-                          << editpass->getPassword().toStdString() << std::endl;
-            }
+        connect(editButton, &QPushButton::clicked, [&crt, this](){
+            openEditPass(crt);
         });
 
         deleteButton->setMinimumHeight(25);
@@ -120,34 +108,8 @@ void MainWindow::updateDatabaseUI()
         auto passwid = new QWidget;
         passwid->setLayout(passhlay);
         ui->passLayout->addWidget(passwid);
-        ui->passwordsSubcontainer->setStyleSheet("#passwordsSubcontainer{"
-                                                 "    background-color: rgb(57, 73, 94);"
-                                                 "    border-radius: 26px;"
-                                                 "}"
-                                                 ""
-                                                 "#passwordsSubcontainer QLabel{"
-                                                 "    color: rgb(153, 234, 255);"
-                                                 "    font: 10pt \"Segoe UI\";"
-                                                 "    /*qproperty-alignment: AlignCenter;*/"
-                                                 "}"
-                                                 ""
-                                                 "#passwordsSubcontainer QPushButton{"
-                                                 "    border-radius: 12px;"
-                                                 "    background-color: rgb(57, 73, 94);"
-                                                 "}"
-                                                 ""
-                                                 "#passwordsSubcontainer QPushButton:hover {"
-                                                 "    background-color: rgb(55, 113, 167);"
-                                                 "}"
-                                                 ""
-                                                 "#passwordsSubcontainer QPushButton:pressed{"
-                                                 "    background-color: #34699D;"
-                                                 "}"
-                                                 ""
-                                                 "#passwordsSubcontainer QLineEdit{"
-                                                 "    color: rgb(153, 234, 255);"
-                                                 "    /*qproperty-alignment: AlignCenter;*/"
-                                                 "}");
+        ui->passwordsSubcontainer->setStyleSheet(PasswordsSubContainerStyleSheet);
+
     }
     if(isEmpty)
     {
@@ -161,6 +123,18 @@ void MainWindow::updateDatabaseUI()
         auto emptywid = new QWidget;
         emptywid->setLayout(emptyhlay);
         ui->passLayout->addWidget(emptywid);
+    }
+}
+
+void MainWindow::openEditPass(Database::Entry &entry)
+{
+    EditPass* editpass = new EditPass(entry);
+    editpass->exec();
+    if(editpass->toSave())
+    {
+        entry = editpass->getEntry();
+        updateDatabaseUI();
+        db->save();
     }
 }
 
@@ -243,10 +217,4 @@ void MainWindow::helpPressed()
 {
     uncheckAllButtons(ui->leftMenuContainer);
     ui->stackedWidget->setCurrentWidget(ui->helpPage);
-}
-
-void MainWindow::editPressed(const QString &name, const QString &id, const QString &description, const QString &password)
-{
-    EditPass* editpass = new EditPass(name, id, description, password);
-    editpass->show();
 }

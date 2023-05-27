@@ -20,6 +20,7 @@ SOURCES += \
     signupdialog.cpp
 
 HEADERS += \
+    constants.h \
     database.h \
     editpass.h \
     encrypt.h \

@@ -11,9 +11,9 @@ public:
 
     class Entry{
     public:
-        std::string name, id, description, pass;
+        std::string title, username, description, pass;
         Entry();
-        Entry(std::string name, std::string id, std::string description, std::string pass);
+        Entry(std::string title, std::string username, std::string description, std::string pass);
     };
     class BadPasswordException{};
 

@@ -7,10 +7,10 @@ Database::Entry::Entry(): Entry("", "", "", "")
 
 }
 
-Database::Entry::Entry(std::string name, std::string id, std::string description, std::string pass)
+Database::Entry::Entry(std::string title, std::string username, std::string description, std::string pass)
 {
-    this->name = name;
-    this->id = id;
+    this->title = title;
+    this->username = username;
     this->description = description;
     this->pass = pass;
 }
@@ -53,8 +53,8 @@ void Database::save()
 {
     std::ofstream fout("database.txt");
     for(const auto &elem : entries)
-        fout << elem.name << '\n'
-             << elem.id << '\n'
+        fout << elem.title << '\n'
+             << elem.username << '\n'
              << elem.description << '\n'
              << elem.pass << '\n';
     fout.close();
@@ -62,9 +62,9 @@ void Database::save()
 
 bool Database::entriesCmp(const Entry &a, const Entry &b)
 {
-    if(a.name.compare(b.name) < 0)
+    if(a.title.compare(b.title) < 0)
         return true;
-    if(a.name.compare(b.name) == 0 && a.id.compare(b.id) < 0)
+    if(a.title.compare(b.title) == 0 && a.username.compare(b.username) < 0)
         return true;
     return false;
 }

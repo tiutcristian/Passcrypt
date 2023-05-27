@@ -1,5 +1,4 @@
-/*
-#include "encrypt.h"
+/*#include "encrypt.h"
 #include <bits/stdc++.h>
 #include <iostream>
 using std::cout;
@@ -95,5 +94,4 @@ void print(string s, int lenmax)
     else
         cout << s;
     cout << '\n';
-}
-*/
+}*/
