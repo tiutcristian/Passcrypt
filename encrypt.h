@@ -14,5 +14,6 @@ struct char_options
 
 string encrypt(const string & s, const string & master);
 string decrypt(const string & s, const string & master);
+string generatePassword(int len, char_options options);
 
 #endif // ENCRYPT_H

@@ -95,3 +95,39 @@ void print(string s, int lenmax)
         cout << s;
     cout << '\n';
 }*/
+#include "encrypt.h"
+#include "sodium.h"
+#include <vector>
+
+std::string generatePassword(int len, char_options options)
+{
+    std::vector<char> alphabet;
+    if(options.lowercase)
+        for(char c = 'a'; c <= 'z'; c++)
+            alphabet.push_back(c);
+    if(options.uppercase)
+        for(char c = 'A'; c <= 'Z'; c++)
+            alphabet.push_back(c);
+    if(options.numbers)
+        for(char c = '0'; c <= '9'; c++)
+            alphabet.push_back(c);
+    if(options.symbols)
+    {
+        for(char c = 33; c <= 47; c++)
+            alphabet.push_back(c);
+        for(char c = 58; c <= 64; c++)
+            alphabet.push_back(c);
+        for(char c = 91; c <= 96; c++)
+            alphabet.push_back(c);
+        for(char c = 123; c <= 126; c++)
+            alphabet.push_back(c);
+    }
+
+    std::string pass;
+    for(int i = 0; i < len; i++)
+    {
+        int index = randombytes_uniform(alphabet.size());
+        pass += alphabet[index];
+    }
+    return pass;
+}

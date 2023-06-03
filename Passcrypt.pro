@@ -50,6 +50,7 @@ DISTFILES += \
     infos
 
 unix:!macx|win32: LIBS += -L$$PWD/'../Cryptlib compiled/' -lcryptopp
+LIBS += -lsodium
 
 INCLUDEPATH += $$PWD/'../Cryptlib compiled'
 DEPENDPATH += $$PWD/'../Cryptlib compiled'
