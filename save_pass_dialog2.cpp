@@ -1,5 +1,5 @@
 #include "save_pass_dialog2.h"
-#include "ui_save_pass_dialog.h"
+#include "ui_save_pass_dialog2.h"
 #include <QStyle>
 #include <QPainter>
 
