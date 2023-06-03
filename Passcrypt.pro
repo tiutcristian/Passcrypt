@@ -16,7 +16,7 @@ SOURCES += \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    save_pass_dialog.cpp \
+    save_pass_dialog2.cpp \
     signupdialog.cpp
 
 HEADERS += \
@@ -27,7 +27,7 @@ HEADERS += \
     generate.h \
     logindialog.h \
     mainwindow.h \
-    save_pass_dialog.h \
+    save_pass_dialog2.h \
     signupdialog.h
 
 FORMS += \
@@ -35,7 +35,7 @@ FORMS += \
     generate.ui \
     logindialog.ui \
     mainwindow.ui \
-    save_pass_dialog.ui \
+    save_pass_dialog2.ui \
     signupdialog.ui
 
 # Default rules for deployment.

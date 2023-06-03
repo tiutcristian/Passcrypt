@@ -1,11 +1,11 @@
-#include "save_pass_dialog.h"
+#include "save_pass_dialog2.h"
 #include "ui_save_pass_dialog.h"
 #include <QStyle>
 #include <QPainter>
 
-save_pass_dialog::save_pass_dialog(QWidget *parent) :
+save_pass_dialog2::save_pass_dialog2(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::save_pass_dialog)
+    ui(new Ui::save_pass_dialog2)
 {
     ui->setupUi(this);
     buttonsStyle();
@@ -13,12 +13,12 @@ save_pass_dialog::save_pass_dialog(QWidget *parent) :
     setAttribute(Qt::WA_TranslucentBackground);
 }
 
-save_pass_dialog::~save_pass_dialog()
+save_pass_dialog2::~save_pass_dialog2()
 {
     delete ui;
 }
 
-void save_pass_dialog::connectComponents()
+void save_pass_dialog2::connectComponents()
 {
     connect(ui->saveButton, SIGNAL( pressed() ), this, SLOT( savePressed() ));
     connect(ui->cancelButton, SIGNAL( pressed() ), this, SLOT( cancelPressed() ));
@@ -27,7 +27,7 @@ void save_pass_dialog::connectComponents()
     connect(ui->lineEdit_2, &QLineEdit::textChanged, [=]{ style()->polish(ui->lineEdit_2); });
 }
 
-void save_pass_dialog::buttonsStyle()
+void save_pass_dialog2::buttonsStyle()
 {
     auto cursor = new QCursor;
     cursor->setShape(Qt::PointingHandCursor);
@@ -35,7 +35,7 @@ void save_pass_dialog::buttonsStyle()
     ui->cancelButton->setCursor(*cursor);
 }
 
-void save_pass_dialog::paintEvent(QPaintEvent *event)
+void save_pass_dialog2::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setBrush(QBrush(QColor(5, 16, 32)));
@@ -50,22 +50,22 @@ void save_pass_dialog::paintEvent(QPaintEvent *event)
 
     QWidget::paintEvent(event);
 }
-void save_pass_dialog::savePressed()
+void save_pass_dialog2::savePressed()
 {
     name = ui->lineEdit->text().toStdString();
     ID = ui->lineEdit_2->text().toStdString();
     description = ui->descriptionTextEdit->toPlainText().toStdString();
     save = true;
-    save_pass_dialog::close();
+    save_pass_dialog2::close();
 }
 
-void save_pass_dialog::cancelPressed()
+void save_pass_dialog2::cancelPressed()
 {
     save = false;
-    save_pass_dialog::close();
+    save_pass_dialog2::close();
 }
 
-void save_pass_dialog::descriptionChanged()
+void save_pass_dialog2::descriptionChanged()
 {
     int descriptionLength = 200;
     QString text = ui->descriptionTextEdit->toPlainText();

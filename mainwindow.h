@@ -18,6 +18,7 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
     Database* db;
+    bool createNewToggled = 0;
 
     void initialDialog();
     void connectComponents();
@@ -26,6 +27,8 @@ private:
     void uncheckAllButtons(QObject* widget);
     void updateDatabaseUI();
     void openEditPass(Database::Entry &entry);
+    void expandDatabaseCreateToolbar();
+    void shrinkDatabaseCreateToolbar();
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -40,6 +43,8 @@ public slots:
     void getStartedPressed();
     void databasePressed();
     void createNewPressed();
+    void autoPressed();
+    void manualPressed();
     void helpPressed();
 };
 #endif // MAINWINDOW_H

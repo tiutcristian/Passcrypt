@@ -11,7 +11,7 @@
 #include <QClipboard>
 #include <QLineEdit>
 #include <QSizePolicy>
-#include "save_pass_dialog.h"
+#include "save_pass_dialog2.h"
 #include "constants.h"
 
 void MainWindow::initialDialog()
@@ -29,6 +29,8 @@ void MainWindow::connectComponents()
     connect(ui->homeButton, SIGNAL(pressed()), this, SLOT(homePressed()));
     connect(ui->getStartedButton, SIGNAL(pressed()), this, SLOT(getStartedPressed()));
     connect(ui->newButton, SIGNAL(pressed()), this, SLOT(createNewPressed()));
+    connect(ui->autoButton, SIGNAL(pressed()), this, SLOT(autoPressed()));
+    connect(ui->manualButton, SIGNAL(pressed()), this, SLOT(manualPressed()));
     connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
     /*
@@ -44,6 +46,8 @@ void MainWindow::buttonStyle()
     ui->homeButton->setCursor(Qt::PointingHandCursor);
     ui->getStartedButton->setCursor(Qt::PointingHandCursor);
     ui->newButton->setCursor(Qt::PointingHandCursor);
+    ui->autoButton->setCursor(Qt::PointingHandCursor);
+    ui->manualButton->setCursor(Qt::PointingHandCursor);
     ui->databaseButton->setCursor(Qt::PointingHandCursor);
     ui->helpButton->setCursor(Qt::PointingHandCursor);
 }
@@ -138,6 +142,42 @@ void MainWindow::openEditPass(Database::Entry &entry)
     }
 }
 
+void MainWindow::expandDatabaseCreateToolbar()
+{
+    auto anim1 = new QPropertyAnimation(ui->autoButton, "geometry");
+    anim1->setDuration(300);
+    anim1->setStartValue(ui->autoButton->geometry());
+
+    auto anim2 = new QPropertyAnimation(ui->manualButton, "geometry");
+    anim2->setDuration(300);
+    anim2->setStartValue(ui->manualButton->geometry());
+
+    createNewToggled = 1;
+    anim1->setEndValue(QRect(50, 0, 80, 40));
+    anim2->setEndValue(QRect(140, 0, 80, 40));
+
+    anim1->start();
+    anim2->start();
+}
+
+void MainWindow::shrinkDatabaseCreateToolbar()
+{
+    auto anim1 = new QPropertyAnimation(ui->autoButton, "geometry");
+    anim1->setDuration(300);
+    anim1->setStartValue(ui->autoButton->geometry());
+
+    auto anim2 = new QPropertyAnimation(ui->manualButton, "geometry");
+    anim2->setDuration(300);
+    anim2->setStartValue(ui->manualButton->geometry());
+
+    createNewToggled = 0;
+    anim1->setEndValue(QRect(0, 0, 40, 40));
+    anim2->setEndValue(QRect(0, 0, 40, 40));
+
+    anim1->start();
+    anim2->start();
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
@@ -197,6 +237,15 @@ void MainWindow::databasePressed()
 
 void MainWindow::createNewPressed()
 {
+    if(!createNewToggled)
+        expandDatabaseCreateToolbar();
+    else
+        shrinkDatabaseCreateToolbar();
+}
+
+void MainWindow::autoPressed()
+{
+    shrinkDatabaseCreateToolbar();
     Generate gen(this);
     gen.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     gen.exec();
@@ -211,6 +260,11 @@ void MainWindow::createNewPressed()
         db->add(Database::Entry(name, ID, desc, pass));
         updateDatabaseUI();
     }
+}
+
+void MainWindow::manualPressed()
+{
+    shrinkDatabaseCreateToolbar();
 }
 
 void MainWindow::helpPressed()

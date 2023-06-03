@@ -4,7 +4,7 @@
 #include <iostream>
 #include <QPropertyAnimation>
 #include <QClipboard>
-#include "save_pass_dialog.h"
+#include "save_pass_dialog2.h"
 #include <QString>
 #include <QStyle>
 #include <QDesktopWidget>
@@ -12,8 +12,8 @@
 
 void Generate::buttonsStyle()
 {
-    ui->encryptButton->setCursor(Qt::PointingHandCursor);
-    ui->clipboardButton->setCursor(Qt::PointingHandCursor);
+    //ui->encryptButton->setCursor(Qt::PointingHandCursor);
+    //ui->clipboardButton->setCursor(Qt::PointingHandCursor);
     ui->yesButton->setCursor(Qt::PointingHandCursor);
     ui->noButton->setCursor(Qt::PointingHandCursor);
     ui->xButton->setCursor(Qt::PointingHandCursor);
@@ -21,19 +21,19 @@ void Generate::buttonsStyle()
 
 void Generate::initialState()
 {
-    QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    int x = (screenGeometry.width()-this->width()) / 2;
-    int y = (screenGeometry.height()-this->height()) / 2;
-    setGeometry(x, y, 350, 105);
-    ui->inputLineEdit->setText("");
-    ui->encryptedLineEdit->setText("");
-    ui->encryptedLineEdit->setDisabled(true);
+    //QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    //int x = (screenGeometry.width()-this->width()) / 2;
+    //int y = (screenGeometry.height()-this->height()) / 2;
+    //setGeometry(x, y, 350, 105);
+    //ui->inputLineEdit->setText("");
+    //ui->encryptedLineEdit->setText("");
+    //ui->encryptedLineEdit->setDisabled(true);
 }
 
 void Generate::connectComponents()
 {
-    connect(ui->encryptButton, SIGNAL( pressed()), this, SLOT( encryptPressed()) );
-    connect(ui->clipboardButton, SIGNAL( pressed()), this, SLOT( clipboardPressed()) );
+    //connect(ui->encryptButton, SIGNAL( pressed()), this, SLOT( encryptPressed()) );
+    //connect(ui->clipboardButton, SIGNAL( pressed()), this, SLOT( clipboardPressed()) );
     connect(ui->yesButton, SIGNAL( pressed()), this, SLOT( yesPressed()) );
     connect(ui->noButton, SIGNAL( pressed()), this, SLOT( noPressed()) );
     connect(ui->inputLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->inputLineEdit); });
@@ -88,7 +88,7 @@ void Generate::encryptPressed()
     if(ui->inputLineEdit->text().length())
     {
         encryptedPassword = ui->inputLineEdit->text().toStdString();
-        ui->encryptedLineEdit->setText( ui->inputLineEdit->text() );
+        //ui->encryptedLineEdit->setText( ui->inputLineEdit->text() );
         expand();
     }
 }
@@ -96,12 +96,12 @@ void Generate::encryptPressed()
 void Generate::clipboardPressed()
 {
     QClipboard *clipboard = QApplication::clipboard();
-    clipboard->setText( ui->encryptedLineEdit->text() );
+    //clipboard->setText( ui->encryptedLineEdit->text() );
 }
 
 void Generate::yesPressed()
 {
-    save_pass_dialog dialog;
+    save_pass_dialog2 dialog;
     dialog.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     int x = this->geometry().x();
     int y = this->geometry().y();
