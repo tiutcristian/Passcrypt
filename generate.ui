@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>538</height>
+    <height>480</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -26,11 +26,19 @@
    <string>Generate</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-radius: 20px;
-background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(9, 31, 61, 255), stop:1 rgba(5, 16, 32, 255));
+   <string notr="true">*{
+	border-radius: 20px;
+}
+
+#Generate{
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(9, 31, 61, 255), stop:1 rgba(5, 16, 32, 255));
+}
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="leftMargin">
     <number>5</number>
    </property>
@@ -43,78 +51,6 @@ background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5
    <property name="bottomMargin">
     <number>5</number>
    </property>
-   <item alignment="Qt::AlignTop">
-    <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
-      <property name="leftMargin">
-       <number>3</number>
-      </property>
-      <property name="topMargin">
-       <number>3</number>
-      </property>
-      <property name="rightMargin">
-       <number>3</number>
-      </property>
-      <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>291</width>
-          <height>18</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="xButton">
-        <property name="minimumSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-	border-radius: 12px;
-    background-color: rgb(5, 16, 32);
-	color: #fff;
-}
-
-QPushButton:hover {
-	background-color: rgb(52, 105, 157);
-}
-
-QPushButton:pressed{
-	background-color: rgb(48, 98, 145);
-}</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/icons/icons/x.svg</normaloff>:/icons/icons/x.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item>
     <widget class="QWidget" name="upperWidget" native="true">
      <property name="sizePolicy">
@@ -133,7 +69,7 @@ QLabel{
 	color: rgb(255, 255, 255);
 }</string>
      </property>
-     <widget class="QFrame" name="inputFrame">
+     <widget class="QFrame" name="titleFrame">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -153,7 +89,7 @@ QLabel{
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLineEdit" name="inputLineEdit">
+        <widget class="QLineEdit" name="titleLineEdit">
          <property name="minimumSize">
           <size>
            <width>200</width>
@@ -384,7 +320,7 @@ QLabel{
        </item>
       </layout>
      </widget>
-     <widget class="QFrame" name="inputFrame_2">
+     <widget class="QFrame" name="idFrame">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -404,7 +340,7 @@ QLabel{
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QLineEdit" name="inputLineEdit_2">
+        <widget class="QLineEdit" name="idLineEdit">
          <property name="minimumSize">
           <size>
            <width>200</width>
@@ -635,7 +571,7 @@ QLabel{
        </item>
       </layout>
      </widget>
-     <widget class="QFrame" name="inputFrame_3">
+     <widget class="QFrame" name="passwordFrame">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -655,7 +591,7 @@ QLabel{
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QLineEdit" name="inputLineEdit_3">
+        <widget class="QLineEdit" name="passwordLineEdit">
          <property name="minimumSize">
           <size>
            <width>200</width>
@@ -947,7 +883,7 @@ QLabel{
        </item>
       </layout>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="titleLabel">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -957,10 +893,10 @@ QLabel{
        </rect>
       </property>
       <property name="text">
-       <string>Title</string>
+       <string>Title:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="idLabel">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -970,10 +906,10 @@ QLabel{
        </rect>
       </property>
       <property name="text">
-       <string>ID</string>
+       <string>ID:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="passwordLabel">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -986,7 +922,7 @@ QLabel{
        <string>Password:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_4">
+     <widget class="QLabel" name="descriptionLabel">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1146,8 +1082,6 @@ QPushButton:pressed{
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

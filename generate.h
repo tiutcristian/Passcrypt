@@ -14,39 +14,29 @@ class Generate : public QDialog
 
 private:
     Ui::Generate *ui;
-    std::string encryptedPassword;
-    std::string passwordName;
-    std::string passwordID;
-    std::string passwordDescription;
-    bool save;
+    std::string password;
+    std::string title;
+    std::string id;
+    std::string description;
+    bool save = 0;
 
     void buttonsStyle();
-    void initialState();
+    void initialState(const bool &autoGenerate);
     void connectComponents();
-    void paintEvent(QPaintEvent *event);
 
 public:
-    explicit Generate(QWidget *parent = nullptr);
+    Generate(const bool &autoGenerate);
     ~Generate();
 
-    bool upper_pressed = 0;
-    bool lower_pressed = 0;
-    bool numbers_pressed = 0;
-    bool symbols_pressed = 0;
-
-    void expand();
-
-    std::string getEncryptedPassword(){ return encryptedPassword; }
-    std::string getName(){ return passwordName; }
-    std::string getID(){ return passwordID; }
-    std::string getDescription(){ return passwordDescription; }
+    std::string getPassword(){ return password; }
+    std::string getTitle(){ return title; }
+    std::string getID(){ return id; }
+    std::string getDescription(){ return description; }
     bool toSave(){ return save; }
 
 public slots:
-    void encryptPressed();
-    void clipboardPressed();
+    void descriptionChanged();
     void yesPressed();
     void noPressed();
-    void xPressed();
 };
 #endif // GENERATE_H

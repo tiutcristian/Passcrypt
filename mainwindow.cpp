@@ -33,12 +33,6 @@ void MainWindow::connectComponents()
     connect(ui->manualButton, SIGNAL(pressed()), this, SLOT(manualPressed()));
     connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
-    /*
-    int a = 3;
-    int b = 4;
-    connect(ui->pushButton, &QPushButton::clicked, [a, b](){
-       std::cout << a << ' ' << b << std::endl;
-    });*/
 }
 
 void MainWindow::buttonStyle()
@@ -64,7 +58,7 @@ void MainWindow::uncheckAllButtons(QObject *widget)
     auto button = dynamic_cast<QPushButton*>(widget);
     if(button != nullptr)
         button->setChecked(false);
-    else
+    else if(widget != nullptr)
     {
         auto list = widget->children();
         for(auto i : list)
@@ -246,18 +240,15 @@ void MainWindow::createNewPressed()
 void MainWindow::autoPressed()
 {
     shrinkDatabaseCreateToolbar();
-    Generate gen(this);
-    gen.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    Generate gen(true);
     gen.exec();
     if(gen.toSave())
     {
-        auto name = gen.getName();
-        auto ID = gen.getID();
-        auto desc = gen.getDescription();
-        auto pass = gen.getEncryptedPassword();
-        std::cout << name << ' ' << ID << ' ' << desc << ' ' << pass << std::endl;
-
-        db->add(Database::Entry(name, ID, desc, pass));
+        auto title = gen.getTitle();
+        auto id = gen.getID();
+        auto description = gen.getDescription();
+        auto password = gen.getPassword();
+        db->add(Database::Entry(title, id, description, password));
         updateDatabaseUI();
     }
 }
@@ -265,6 +256,17 @@ void MainWindow::autoPressed()
 void MainWindow::manualPressed()
 {
     shrinkDatabaseCreateToolbar();
+    Generate gen(false);
+    gen.exec();
+    if(gen.toSave())
+    {
+        auto title = gen.getTitle();
+        auto id = gen.getID();
+        auto description = gen.getDescription();
+        auto password = gen.getPassword();
+        db->add(Database::Entry(title, id, description, password));
+        updateDatabaseUI();
+    }
 }
 
 void MainWindow::helpPressed()
