@@ -1,5 +1,5 @@
 #include "createnew.h"
-#include "ui_generate.h"
+#include "ui_createnew.h"
 #include <fstream>
 #include <iostream>
 #include <QPropertyAnimation>
@@ -9,13 +9,13 @@
 #include <QDesktopWidget>
 #include <QPainter>
 
-void Generate::buttonsStyle()
+void CreateNew::buttonsStyle()
 {
     ui->saveButton->setCursor(Qt::PointingHandCursor);
     ui->cancelButton->setCursor(Qt::PointingHandCursor);
 }
 
-void Generate::initialState(const bool &autoGenerate)
+void CreateNew::initialState(const bool &autoGenerate)
 {
     if (autoGenerate)
         ui->passwordLineEdit->setText("abc");
@@ -23,7 +23,7 @@ void Generate::initialState(const bool &autoGenerate)
         ui->passwordLineEdit->setPlaceholderText("Enter password...");
 }
 
-void Generate::connectComponents()
+void CreateNew::connectComponents()
 {
     connect(ui->titleLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->titleLineEdit); });
     connect(ui->idLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->idLineEdit); });
@@ -33,8 +33,8 @@ void Generate::connectComponents()
     connect(ui->cancelButton, SIGNAL( clicked()), this, SLOT( cancelClicked()) );
 }
 
-Generate::Generate(const bool &autoGenerate) :
-    ui(new Ui::Generate)
+CreateNew::CreateNew(const bool &autoGenerate) :
+    ui(new Ui::CreateNew)
 {
     ui->setupUi(this);
     initialState(autoGenerate);
@@ -42,12 +42,12 @@ Generate::Generate(const bool &autoGenerate) :
     connectComponents();
 }
 
-Generate::~Generate()
+CreateNew::~CreateNew()
 {
     delete ui;
 }
 
-void Generate::descriptionChanged()
+void CreateNew::descriptionChanged()
 {
     int descriptionLength = 200;
     QString text = ui->descriptionTextEdit->toPlainText();
@@ -82,7 +82,7 @@ void Generate::descriptionChanged()
         ui->descriptionTextEdit->setStyleSheet("color: rgba(153, 234, 255, 255);");
 }
 
-void Generate::saveClicked()
+void CreateNew::saveClicked()
 {
     save = true;
     title = ui->titleLineEdit->text().toStdString();
@@ -92,7 +92,7 @@ void Generate::saveClicked()
     this->close();
 }
 
-void Generate::cancelClicked()
+void CreateNew::cancelClicked()
 {
     save = false;
     this->close();

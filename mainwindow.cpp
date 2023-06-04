@@ -193,7 +193,7 @@ void MainWindow::createNewClicked()
 void MainWindow::autoClicked()
 {
     shrinkDatabaseCreateToolbar();
-    Generate gen(true);
+    CreateNew gen(true);
     gen.exec();
     if(gen.toSave())
     {
@@ -209,7 +209,7 @@ void MainWindow::autoClicked()
 void MainWindow::manualClicked()
 {
     shrinkDatabaseCreateToolbar();
-    Generate gen(false);
+    CreateNew gen(false);
     gen.exec();
     if(gen.toSave())
     {

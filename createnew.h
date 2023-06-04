@@ -5,15 +5,15 @@
 #include <string>
 
 namespace Ui {
-class Generate;
+class CreateNew;
 }
 
-class Generate : public QDialog
+class CreateNew : public QDialog
 {
     Q_OBJECT
 
 private:
-    Ui::Generate *ui;
+    Ui::CreateNew *ui;
     std::string password;
     std::string title;
     std::string id;
@@ -25,8 +25,8 @@ private:
     void connectComponents();
 
 public:
-    Generate(const bool &autoGenerate);
-    ~Generate();
+    CreateNew(const bool &autoGenerate);
+    ~CreateNew();
 
     std::string getPassword(){ return password; }
     std::string getTitle(){ return title; }
