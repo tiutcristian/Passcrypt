@@ -76,8 +76,9 @@ void MainWindow::updateDatabaseUI()
         auto titlelbl = new QLabel(QString::fromStdString(crt.title));                                  passhlay->addWidget(titlelbl);          titlelbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
         auto idlbl = new QLabel(QString::fromStdString(crt.username));                                  passhlay->addWidget(idlbl);             idlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
         auto descriptionlbl = new QLabel(QString::fromStdString(crt.description));                      passhlay->addWidget(descriptionlbl);    descriptionlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-        auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " edit");              passhlay->addWidget(editButton);        editButton->setCursor(Qt::PointingHandCursor);      editButton->setMinimumHeight(25);   editButton->setMaximumWidth(70);    connect(editButton, &QPushButton::clicked, [&crt, this](){ openEditPass(crt); });
-        auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " delete");   passhlay->addWidget(deleteButton);      deleteButton->setCursor(Qt::PointingHandCursor);    deleteButton->setMinimumHeight(25); deleteButton->setMaximumWidth(70);
+        auto copyButton = new QPushButton(QIcon(":/icons/icons/copy-lightblue.svg"), " Copy");          passhlay->addWidget(copyButton);        copyButton->setCursor(Qt::PointingHandCursor);      copyButton->setMinimumHeight(25);   copyButton->setMaximumWidth(60);    connect(copyButton, &QPushButton::clicked, [&crt, this](){ copyToClipboard(QString::fromStdString(crt.pass)); });
+        auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " edit");              passhlay->addWidget(editButton);        editButton->setCursor(Qt::PointingHandCursor);      editButton->setMinimumHeight(25);   editButton->setMaximumWidth(60);    connect(editButton, &QPushButton::clicked, [&crt, this](){ openEditPass(crt); });
+        auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " delete");   passhlay->addWidget(deleteButton);      deleteButton->setCursor(Qt::PointingHandCursor);    deleteButton->setMinimumHeight(25); deleteButton->setMaximumWidth(60);
         auto passwid = new QWidget; passwid->setLayout(passhlay); ui->passLayout->addWidget(passwid);
         ui->passwordsSubcontainer->setStyleSheet(PasswordsSubContainerStyleSheet);
     }
@@ -88,6 +89,12 @@ void MainWindow::updateDatabaseUI()
         auto emptywid = new QWidget; emptywid->setLayout(emptyhlay);
         ui->passLayout->addWidget(emptywid);
     }
+}
+
+void MainWindow::copyToClipboard(const QString &text)
+{
+    QClipboard* clipboard = QApplication::clipboard();
+    clipboard->setText(text);
 }
 
 void MainWindow::openEditPass(Database::Entry &entry)
@@ -102,7 +109,7 @@ void MainWindow::openEditPass(Database::Entry &entry)
     }
 }
 
-void MainWindow::geometryAnimation(QWidget *target, int x, int y, int w, int h, int d)
+void MainWindow::geometryAnimation(QWidget *target, const int &x, const int &y, const int &w, const int &h, const int &d)
 {
     auto anim = new QPropertyAnimation(target, "geometry");
     anim->setDuration(d);

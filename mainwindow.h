@@ -26,8 +26,9 @@ private:
     void initialState();
     void uncheckAllButtons(QObject* widget);
     void updateDatabaseUI();
+    void copyToClipboard(const QString &text);
     void openEditPass(Database::Entry &entry);
-    void geometryAnimation(QWidget* target, int x, int y, int w, int h, int d);
+    void geometryAnimation(QWidget* target, const int &x, const int &y, const int &w, const int &h, const int &d);
     void expandDatabaseCreateToolbar();
     void shrinkDatabaseCreateToolbar();
 
