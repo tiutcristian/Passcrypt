@@ -8,6 +8,7 @@
 #include <QStyle>
 #include <QDesktopWidget>
 #include <QPainter>
+#include "encrypt.h"
 
 void CreateNew::buttonsStyle()
 {
@@ -18,7 +19,14 @@ void CreateNew::buttonsStyle()
 void CreateNew::initialState(const bool &autoGenerate)
 {
     if (autoGenerate)
-        ui->passwordLineEdit->setText("abc");
+    {
+        char_options co;
+        co.lowercase = true;
+        co.uppercase = true;
+        co.numbers = true;
+        co.symbols = true;
+        ui->passwordLineEdit->setText(QString::fromStdString( generatePassword(20, co) ));
+    }
     else
         ui->passwordLineEdit->setPlaceholderText("Enter password...");
 }
