@@ -2,16 +2,7 @@
 #include "ui_editpass.h"
 #include <QStyle>
 #include <iostream>
-/*
-EditPass::EditPass(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::EditPass)
-{
-    ui->setupUi(this);
-    buttonStyle();
-    connectComponents();
-}
-*/
+
 EditPass::EditPass(const Database::Entry &entry) :
     ui(new Ui::EditPass),
     entry(entry)
@@ -33,20 +24,21 @@ void EditPass::buttonStyle()
     cursor->setShape(Qt::PointingHandCursor);
     ui->editButton->setCursor(*cursor);
     ui->saveButton->setCursor(*cursor);
-    ui->deleteButton->setCursor(*cursor);
+    ui->cancelButton->setCursor(*cursor);
 }
 
 void EditPass::connectComponents()
 {
-    connect(ui->nameLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->nameLineEdit); });
+    connect(ui->titleLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->titleLineEdit); });
     connect(ui->idLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->idLineEdit); });
     connect(ui->descriptionTextEdit, SIGNAL(textChanged()), this, SLOT(descriptionChanged()));
-    connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(savePressed()));
+    connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveClicked()));
+    connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(cancelClicked()));
 }
 
 void EditPass::initialState()
 {
-    ui->nameLineEdit->setText(QString::fromStdString(entry.title));
+    ui->titleLineEdit->setText(QString::fromStdString(entry.title));
     ui->idLineEdit->setText(QString::fromStdString(entry.username));
     ui->descriptionTextEdit->setText(QString::fromStdString(entry.description));
     ui->passwordLineEdit->setText(QString::fromStdString(entry.pass));
@@ -62,12 +54,17 @@ void EditPass::descriptionChanged()
         ui->descriptionTextEdit->setStyleSheet("color: rgba(153, 234, 255, 255);");
 }
 
-void EditPass::savePressed()
+void EditPass::saveClicked()
 {
-    entry.title = ui->nameLineEdit->text().toStdString();
+    entry.title = ui->titleLineEdit->text().toStdString();
     entry.username = ui->idLineEdit->text().toStdString();
     entry.description = ui->descriptionTextEdit->toPlainText().toStdString();
     entry.pass = ui->passwordLineEdit->text().toStdString();
     save = true;
+    EditPass::close();
+}
+
+void EditPass::cancelClicked()
+{
     EditPass::close();
 }

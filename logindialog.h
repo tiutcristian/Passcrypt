@@ -21,7 +21,7 @@ private:
     void connectComponents();
 
 private slots:
-    void confirmPressed();
+    void confirmClicked();
 };
 
 #endif // LOGINDIALOG_H

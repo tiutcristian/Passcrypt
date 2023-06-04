@@ -27,6 +27,7 @@ private:
     void uncheckAllButtons(QObject* widget);
     void updateDatabaseUI();
     void openEditPass(Database::Entry &entry);
+    void geometryAnimation(QWidget* target, int x, int y, int w, int h, int d);
     void expandDatabaseCreateToolbar();
     void shrinkDatabaseCreateToolbar();
 
@@ -40,11 +41,11 @@ public:
 
 public slots:
     void homePressed();
-    void getStartedPressed();
+    void getStartedClicked();
     void databasePressed();
-    void createNewPressed();
-    void autoPressed();
-    void manualPressed();
+    void createNewClicked();
+    void autoClicked();
+    void manualClicked();
     void helpPressed();
 };
 #endif // MAINWINDOW_H

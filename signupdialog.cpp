@@ -30,12 +30,12 @@ void signupDialog::buttonStyle()
 
 void signupDialog::connectComponents()
 {
-    connect(ui->confirmButton, SIGNAL( pressed() ), this, SLOT( confirmPressed() ) );
+    connect(ui->confirmButton, SIGNAL( clicked() ), this, SLOT( confirmClicked() ) );
     connect(ui->enterLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->enterLineEdit); });
     connect(ui->reenterLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->reenterLineEdit); });
 }
 
-void signupDialog::confirmPressed()
+void signupDialog::confirmClicked()
 {
     if(ui->enterLineEdit->text() == ui->reenterLineEdit->text())
     {

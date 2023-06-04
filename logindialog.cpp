@@ -30,10 +30,10 @@ void loginDialog::buttonStyle()
 void loginDialog::connectComponents()
 {
     connect( ui->lineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->lineEdit); });
-    connect( ui->confirmButton, SIGNAL( pressed() ), this, SLOT( confirmPressed() ) );
+    connect( ui->confirmButton, SIGNAL( clicked() ), this, SLOT( confirmClicked() ) );
 }
 
-void loginDialog::confirmPressed()
+void loginDialog::confirmClicked()
 {
     try {
         auto db = new Database(false, ui->lineEdit->text().toStdString());

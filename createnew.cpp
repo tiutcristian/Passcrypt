@@ -1,10 +1,9 @@
-#include "generate.h"
+#include "createnew.h"
 #include "ui_generate.h"
 #include <fstream>
 #include <iostream>
 #include <QPropertyAnimation>
 #include <QClipboard>
-#include "save_pass_dialog2.h"
 #include <QString>
 #include <QStyle>
 #include <QDesktopWidget>
@@ -12,8 +11,8 @@
 
 void Generate::buttonsStyle()
 {
-    ui->yesButton->setCursor(Qt::PointingHandCursor);
-    ui->noButton->setCursor(Qt::PointingHandCursor);
+    ui->saveButton->setCursor(Qt::PointingHandCursor);
+    ui->cancelButton->setCursor(Qt::PointingHandCursor);
 }
 
 void Generate::initialState(const bool &autoGenerate)
@@ -30,8 +29,8 @@ void Generate::connectComponents()
     connect(ui->idLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->idLineEdit); });
     connect(ui->passwordLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->passwordLineEdit); });
     connect(ui->descriptionTextEdit, SIGNAL( textChanged() ), this, SLOT( descriptionChanged() ));
-    connect(ui->yesButton, SIGNAL( pressed()), this, SLOT( yesPressed()) );
-    connect(ui->noButton, SIGNAL( pressed()), this, SLOT( noPressed()) );
+    connect(ui->saveButton, SIGNAL( clicked()), this, SLOT( saveClicked()) );
+    connect(ui->cancelButton, SIGNAL( clicked()), this, SLOT( cancelClicked()) );
 }
 
 Generate::Generate(const bool &autoGenerate) :
@@ -83,7 +82,7 @@ void Generate::descriptionChanged()
         ui->descriptionTextEdit->setStyleSheet("color: rgba(153, 234, 255, 255);");
 }
 
-void Generate::yesPressed()
+void Generate::saveClicked()
 {
     save = true;
     title = ui->titleLineEdit->text().toStdString();
@@ -93,7 +92,7 @@ void Generate::yesPressed()
     this->close();
 }
 
-void Generate::noPressed()
+void Generate::cancelClicked()
 {
     save = false;
     this->close();

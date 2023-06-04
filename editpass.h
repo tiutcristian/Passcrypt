@@ -31,7 +31,8 @@ private:
 
 private slots:
     void descriptionChanged();
-    void savePressed();
+    void saveClicked();
+    void cancelClicked();
 };
 
 #endif // EDITPASS_H

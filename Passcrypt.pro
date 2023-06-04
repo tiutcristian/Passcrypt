@@ -9,33 +9,30 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    createnew.cpp \
     database.cpp \
     editpass.cpp \
     encrypt.cpp \
-    generate.cpp \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    save_pass_dialog2.cpp \
     signupdialog.cpp
 
 HEADERS += \
     constants.h \
+    createnew.h \
     database.h \
     editpass.h \
     encrypt.h \
-    generate.h \
     logindialog.h \
     mainwindow.h \
-    save_pass_dialog2.h \
     signupdialog.h
 
 FORMS += \
+    createnew.ui \
     editpass.ui \
-    generate.ui \
     logindialog.ui \
     mainwindow.ui \
-    save_pass_dialog2.ui \
     signupdialog.ui
 
 # Default rules for deployment.

@@ -21,7 +21,7 @@ private:
     void connectComponents();
 
 public slots:
-    void confirmPressed();
+    void confirmClicked();
 };
 
 #endif // SIGNUPDIALOG_H

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "logindialog.h"
 #include "signupdialog.h"
-#include "generate.h"
+#include "createnew.h"
 #include "editpass.h"
 #include <fstream>
 #include <iostream>
@@ -11,7 +11,6 @@
 #include <QClipboard>
 #include <QLineEdit>
 #include <QSizePolicy>
-#include "save_pass_dialog2.h"
 #include "constants.h"
 
 void MainWindow::initialDialog()
@@ -27,23 +26,23 @@ void MainWindow::initialDialog()
 void MainWindow::connectComponents()
 {
     connect(ui->homeButton, SIGNAL(pressed()), this, SLOT(homePressed()));
-    connect(ui->getStartedButton, SIGNAL(pressed()), this, SLOT(getStartedPressed()));
-    connect(ui->newButton, SIGNAL(pressed()), this, SLOT(createNewPressed()));
-    connect(ui->autoButton, SIGNAL(pressed()), this, SLOT(autoPressed()));
-    connect(ui->manualButton, SIGNAL(pressed()), this, SLOT(manualPressed()));
     connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
+    connect(ui->getStartedButton, SIGNAL(clicked()), this, SLOT(getStartedClicked()));
+    connect(ui->newButton, SIGNAL(clicked()), this, SLOT(createNewClicked()));
+    connect(ui->autoButton, SIGNAL(clicked()), this, SLOT(autoClicked()));
+    connect(ui->manualButton, SIGNAL(clicked()), this, SLOT(manualClicked()));
 }
 
 void MainWindow::buttonStyle()
 {
     ui->homeButton->setCursor(Qt::PointingHandCursor);
+    ui->databaseButton->setCursor(Qt::PointingHandCursor);
+    ui->helpButton->setCursor(Qt::PointingHandCursor);
     ui->getStartedButton->setCursor(Qt::PointingHandCursor);
     ui->newButton->setCursor(Qt::PointingHandCursor);
     ui->autoButton->setCursor(Qt::PointingHandCursor);
     ui->manualButton->setCursor(Qt::PointingHandCursor);
-    ui->databaseButton->setCursor(Qt::PointingHandCursor);
-    ui->helpButton->setCursor(Qt::PointingHandCursor);
 }
 
 void MainWindow::initialState()
@@ -73,53 +72,20 @@ void MainWindow::updateDatabaseUI()
     for(auto &crt : db->entries)
     {
         isEmpty = false;
-
         auto passhlay = new QHBoxLayout;
-
-        auto namelbl = new QLabel(QString::fromStdString(crt.title));
-        auto idlbl = new QLabel(QString::fromStdString(crt.username));
-        auto descriptionlbl = new QLabel(QString::fromStdString(crt.description));
-        auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " edit");
-        auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " delete");
-
-        passhlay->addWidget(namelbl);
-        passhlay->addWidget(idlbl);
-        passhlay->addWidget(descriptionlbl);
-        passhlay->addWidget(editButton);
-        passhlay->addWidget(deleteButton);
-
-        namelbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-        idlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-        descriptionlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-
-        editButton->setMinimumHeight(25);
-        editButton->setMaximumWidth(70);
-        editButton->setCursor(Qt::PointingHandCursor);
-        connect(editButton, &QPushButton::clicked, [&crt, this](){
-            openEditPass(crt);
-        });
-
-        deleteButton->setMinimumHeight(25);
-        deleteButton->setMaximumWidth(70);
-        deleteButton->setCursor(Qt::PointingHandCursor);
-
-        auto passwid = new QWidget;
-        passwid->setLayout(passhlay);
-        ui->passLayout->addWidget(passwid);
+        auto titlelbl = new QLabel(QString::fromStdString(crt.title));                                  passhlay->addWidget(titlelbl);          titlelbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        auto idlbl = new QLabel(QString::fromStdString(crt.username));                                  passhlay->addWidget(idlbl);             idlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        auto descriptionlbl = new QLabel(QString::fromStdString(crt.description));                      passhlay->addWidget(descriptionlbl);    descriptionlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " edit");              passhlay->addWidget(editButton);        editButton->setCursor(Qt::PointingHandCursor);      editButton->setMinimumHeight(25);   editButton->setMaximumWidth(70);    connect(editButton, &QPushButton::clicked, [&crt, this](){ openEditPass(crt); });
+        auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " delete");   passhlay->addWidget(deleteButton);      deleteButton->setCursor(Qt::PointingHandCursor);    deleteButton->setMinimumHeight(25); deleteButton->setMaximumWidth(70);
+        auto passwid = new QWidget; passwid->setLayout(passhlay); ui->passLayout->addWidget(passwid);
         ui->passwordsSubcontainer->setStyleSheet(PasswordsSubContainerStyleSheet);
-
     }
     if(isEmpty)
     {
         ui->passwordsSubcontainer->setStyleSheet("background: transparent;");
-        auto emptyhlay = new QHBoxLayout;
-        emptyhlay->addStretch();
-        auto emptylbl = new QLabel("No saved passwords");
-        emptylbl->setStyleSheet("font: 12pt \"Segoe UI\"; color: #34699D;");
-        emptyhlay->addWidget(emptylbl);
-        emptyhlay->addStretch();
-        auto emptywid = new QWidget;
-        emptywid->setLayout(emptyhlay);
+        auto emptyhlay = new QHBoxLayout; emptyhlay->addStretch(); auto emptylbl = new QLabel("No saved passwords"); emptylbl->setStyleSheet("font: 12pt \"Segoe UI\"; color: #34699D;"); emptyhlay->addWidget(emptylbl); emptyhlay->addStretch();
+        auto emptywid = new QWidget; emptywid->setLayout(emptyhlay);
         ui->passLayout->addWidget(emptywid);
     }
 }
@@ -136,40 +102,27 @@ void MainWindow::openEditPass(Database::Entry &entry)
     }
 }
 
+void MainWindow::geometryAnimation(QWidget *target, int x, int y, int w, int h, int d)
+{
+    auto anim = new QPropertyAnimation(target, "geometry");
+    anim->setDuration(d);
+    anim->setStartValue(target->geometry());
+    anim->setEndValue(QRect(x, y, w, h));
+    anim->start();
+}
+
 void MainWindow::expandDatabaseCreateToolbar()
 {
-    auto anim1 = new QPropertyAnimation(ui->autoButton, "geometry");
-    anim1->setDuration(300);
-    anim1->setStartValue(ui->autoButton->geometry());
-
-    auto anim2 = new QPropertyAnimation(ui->manualButton, "geometry");
-    anim2->setDuration(300);
-    anim2->setStartValue(ui->manualButton->geometry());
-
+    geometryAnimation(ui->autoButton, 50, 0, 80, 40, 300);
+    geometryAnimation(ui->manualButton, 140, 0, 80, 40, 300);
     createNewToggled = 1;
-    anim1->setEndValue(QRect(50, 0, 80, 40));
-    anim2->setEndValue(QRect(140, 0, 80, 40));
-
-    anim1->start();
-    anim2->start();
 }
 
 void MainWindow::shrinkDatabaseCreateToolbar()
 {
-    auto anim1 = new QPropertyAnimation(ui->autoButton, "geometry");
-    anim1->setDuration(300);
-    anim1->setStartValue(ui->autoButton->geometry());
-
-    auto anim2 = new QPropertyAnimation(ui->manualButton, "geometry");
-    anim2->setDuration(300);
-    anim2->setStartValue(ui->manualButton->geometry());
-
+    geometryAnimation(ui->autoButton, 0, 0, 40, 40, 300);
+    geometryAnimation(ui->manualButton, 0, 0, 40, 40, 300);
     createNewToggled = 0;
-    anim1->setEndValue(QRect(0, 0, 40, 40));
-    anim2->setEndValue(QRect(0, 0, 40, 40));
-
-    anim1->start();
-    anim2->start();
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -216,7 +169,7 @@ void MainWindow::homePressed()
     ui->stackedWidget->setCurrentWidget(ui->homePage);
 }
 
-void MainWindow::getStartedPressed()
+void MainWindow::getStartedClicked()
 {
     uncheckAllButtons(ui->leftMenuContainer);
     ui->databaseButton->setChecked(true);
@@ -229,7 +182,7 @@ void MainWindow::databasePressed()
     ui->stackedWidget->setCurrentWidget(ui->databasePage);
 }
 
-void MainWindow::createNewPressed()
+void MainWindow::createNewClicked()
 {
     if(!createNewToggled)
         expandDatabaseCreateToolbar();
@@ -237,7 +190,7 @@ void MainWindow::createNewPressed()
         shrinkDatabaseCreateToolbar();
 }
 
-void MainWindow::autoPressed()
+void MainWindow::autoClicked()
 {
     shrinkDatabaseCreateToolbar();
     Generate gen(true);
@@ -253,7 +206,7 @@ void MainWindow::autoPressed()
     }
 }
 
-void MainWindow::manualPressed()
+void MainWindow::manualClicked()
 {
     shrinkDatabaseCreateToolbar();
     Generate gen(false);
