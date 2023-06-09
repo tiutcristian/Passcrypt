@@ -29,6 +29,17 @@ void Database::add(const Entry &entry)
     save();
 }
 
+void Database::remove(const Entry &entry)
+{
+    std::string crtTitle = entry.title;
+    std::vector<Entry>::iterator pos;
+    for(auto i = entries.begin(); i < entries.end(); i++)
+        if(i->title == crtTitle)
+            pos = i;
+    entries.erase(pos);
+    save();
+}
+
 void Database::read()
 {
     if(masterPassword == "")

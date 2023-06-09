@@ -20,6 +20,7 @@ public:
     std::vector<Entry> entries;
 
     void add(const Entry &entry);
+    void remove(const Entry &entry);
     void save();
     bool availableTitle(std::string title, std::vector<Database::Entry> entries);
 
