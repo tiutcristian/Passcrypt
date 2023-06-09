@@ -295,5 +295,6 @@
         <file>icons/edit-2 (1).svg</file>
         <file>icons/trash-2-lightblue.svg</file>
         <file>icons/copy-lightblue.svg</file>
+        <file>icons/eye-off-lightblue.svg</file>
     </qresource>
 </RCC>

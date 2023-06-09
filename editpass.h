@@ -25,6 +25,7 @@ private:
     Database::Entry entry;
     Database *db;
     bool save;
+    bool editButtonClicked = 0;
 
     void buttonStyle();
     void connectComponents();
@@ -32,6 +33,7 @@ private:
 
 private slots:
     void descriptionChanged();
+    void editClicked();
     void saveClicked();
     void cancelClicked();
 };
