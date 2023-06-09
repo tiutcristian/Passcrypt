@@ -9,6 +9,7 @@
 #include <QDesktopWidget>
 #include <QPainter>
 #include "encrypt.h"
+#include <QMessageBox>
 
 void CreateNew::buttonsStyle()
 {
@@ -41,8 +42,9 @@ void CreateNew::connectComponents()
     connect(ui->cancelButton, SIGNAL( clicked()), this, SLOT( cancelClicked()) );
 }
 
-CreateNew::CreateNew(const bool &autoGenerate) :
-    ui(new Ui::CreateNew)
+CreateNew::CreateNew(const bool &autoGenerate, Database *db) :
+    ui(new Ui::CreateNew),
+    db(db)
 {
     ui->setupUi(this);
     initialState(autoGenerate);
@@ -92,12 +94,25 @@ void CreateNew::descriptionChanged()
 
 void CreateNew::saveClicked()
 {
-    save = true;
-    title = ui->titleLineEdit->text().toStdString();
-    id = ui->idLineEdit->text().toStdString();
-    password = ui->passwordLineEdit->text().toStdString();
-    description = ui->descriptionTextEdit->toPlainText().toStdString();
-    this->close();
+    if(db->availableTitle(ui->titleLineEdit->text().toStdString(), db->entries))
+    {
+        save = true;
+        title = ui->titleLineEdit->text().toStdString();
+        id = ui->idLineEdit->text().toStdString();
+        password = ui->passwordLineEdit->text().toStdString();
+        description = ui->descriptionTextEdit->toPlainText().toStdString();
+        this->close();
+    }
+    else if(ui->titleLineEdit->text().toStdString().empty())
+    {
+        QMessageBox box(QMessageBox::Icon::Critical, "No title", "No title provided", QMessageBox::Ok, this);
+        box.exec();
+    }
+    else
+    {
+        QMessageBox box(QMessageBox::Icon::Critical, "Conflict", "Title already used", QMessageBox::Ok, this);
+        box.exec();
+    }
 }
 
 void CreateNew::cancelClicked()

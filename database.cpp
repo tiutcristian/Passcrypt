@@ -60,6 +60,16 @@ void Database::save()
     fout.close();
 }
 
+bool Database::availableTitle(std::string title, std::vector<Entry> entries)
+{
+    if(title.empty())
+        return false;
+    for(const auto &it : entries)
+        if(it.title == title)
+            return false;
+    return true;
+}
+
 bool Database::entriesCmp(const Entry &a, const Entry &b)
 {
     if(a.title.compare(b.title) < 0)

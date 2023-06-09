@@ -14,7 +14,7 @@ class EditPass : public QDialog
 
 public:
     // EditPass(QWidget *parent = nullptr);
-    explicit EditPass(const Database::Entry &entry);
+    explicit EditPass(const Database::Entry &entry, Database *db);
     ~EditPass();
 
     Database::Entry getEntry(){ return entry; }
@@ -23,6 +23,7 @@ public:
 private:
     Ui::EditPass *ui;
     Database::Entry entry;
+    Database *db;
     bool save;
 
     void buttonStyle();

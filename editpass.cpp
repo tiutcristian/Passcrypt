@@ -2,10 +2,12 @@
 #include "ui_editpass.h"
 #include <QStyle>
 #include <iostream>
+#include <QMessageBox>
 
-EditPass::EditPass(const Database::Entry &entry) :
+EditPass::EditPass(const Database::Entry &entry, Database *db) :
     ui(new Ui::EditPass),
-    entry(entry)
+    entry(entry),
+    db(db)
 {
     ui->setupUi(this);
     buttonStyle();
@@ -56,12 +58,25 @@ void EditPass::descriptionChanged()
 
 void EditPass::saveClicked()
 {
-    entry.title = ui->titleLineEdit->text().toStdString();
-    entry.username = ui->idLineEdit->text().toStdString();
-    entry.description = ui->descriptionTextEdit->toPlainText().toStdString();
-    entry.pass = ui->passwordLineEdit->text().toStdString();
-    save = true;
-    EditPass::close();
+    if(db->availableTitle(ui->titleLineEdit->text().toStdString(), db->entries))
+    {
+        entry.title = ui->titleLineEdit->text().toStdString();
+        entry.username = ui->idLineEdit->text().toStdString();
+        entry.description = ui->descriptionTextEdit->toPlainText().toStdString();
+        entry.pass = ui->passwordLineEdit->text().toStdString();
+        save = true;
+        EditPass::close();
+    }
+    else if(ui->titleLineEdit->text().toStdString().empty())
+    {
+        QMessageBox box(QMessageBox::Icon::Critical, "No title", "No title provided", QMessageBox::Ok, this);
+        box.exec();
+    }
+    else
+    {
+        QMessageBox box(QMessageBox::Icon::Critical, "Conflict", "Title already used", QMessageBox::Ok, this);
+        box.exec();
+    }
 }
 
 void EditPass::cancelClicked()

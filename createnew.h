@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <string>
+#include "database.h"
 
 namespace Ui {
 class CreateNew;
@@ -19,13 +20,14 @@ private:
     std::string id;
     std::string description;
     bool save = 0;
+    Database *db;
 
     void buttonsStyle();
     void initialState(const bool &autoGenerate);
     void connectComponents();
 
 public:
-    CreateNew(const bool &autoGenerate);
+    CreateNew(const bool &autoGenerate, Database *db);
     ~CreateNew();
 
     std::string getPassword(){ return password; }

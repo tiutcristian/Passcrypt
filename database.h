@@ -21,6 +21,7 @@ public:
 
     void add(const Entry &entry);
     void save();
+    bool availableTitle(std::string title, std::vector<Database::Entry> entries);
 
 private:
     std::string masterPassword;

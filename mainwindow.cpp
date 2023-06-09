@@ -99,7 +99,7 @@ void MainWindow::copyToClipboard(const QString &text)
 
 void MainWindow::openEditPass(Database::Entry &entry)
 {
-    EditPass* editpass = new EditPass(entry);
+    EditPass *editpass = new EditPass(entry, db);
     editpass->exec();
     if(editpass->toSave())
     {
@@ -200,7 +200,7 @@ void MainWindow::createNewClicked()
 void MainWindow::autoClicked()
 {
     shrinkDatabaseCreateToolbar();
-    CreateNew gen(true);
+    CreateNew gen(true, db);
     gen.exec();
     if(gen.toSave())
     {
@@ -216,7 +216,7 @@ void MainWindow::autoClicked()
 void MainWindow::manualClicked()
 {
     shrinkDatabaseCreateToolbar();
-    CreateNew gen(false);
+    CreateNew gen(false, db);
     gen.exec();
     if(gen.toSave())
     {
