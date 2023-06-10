@@ -33,20 +33,25 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(5, 16, 32);
+font: 10pt &quot;Segoe UI&quot;;
 border-radius: 20px;</string>
   </property>
   <widget class="QLabel" name="welcomeLabel">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>80</x>
      <y>60</y>
-     <width>140</width>
+     <width>161</width>
      <height>25</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>9</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="layoutDirection">
@@ -92,7 +97,11 @@ border-radius: 20px;</string>
    </property>
    <property name="font">
     <font>
-     <pointsize>11</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -144,7 +153,11 @@ border-radius: 20px;</string>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Segoe UI</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -198,7 +211,11 @@ border-radius: 20px;</string>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Segoe UI</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -225,15 +242,19 @@ QLineEdit[text=&quot;&quot;]{
   <widget class="QLabel" name="enterLabel">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>30</x>
      <y>90</y>
-     <width>251</width>
+     <width>271</width>
      <height>25</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>9</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="layoutDirection">
@@ -247,6 +268,22 @@ QLineEdit[text=&quot;&quot;]{
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="notMatchLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>235</y>
+     <width>160</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 57, 60);</string>
+   </property>
+   <property name="text">
+    <string>*passwords do not match*</string>
    </property>
   </widget>
  </widget>

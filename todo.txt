@@ -1,0 +1,16 @@
+---------------------------------------------------------------
+
+- Change master password
+
+---------------------------------------------------------------
+
+- Advanced Button
+	- by default 	- all 4 char types selected
+				- len = 20
+	- advanced	--> geometryAnimation
+
+---------------------------------------------------------------
+
+- double click on password/id ==> copy to clipboard
+
+---------------------------------------------------------------

@@ -30,14 +30,19 @@
   </property>
   <property name="font">
    <font>
-    <pointsize>8</pointsize>
+    <family>Segoe UI</family>
+    <pointsize>10</pointsize>
+    <weight>50</weight>
+    <italic>false</italic>
+    <bold>false</bold>
    </font>
   </property>
   <property name="windowTitle">
    <string>Log in</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(5, 16, 32);</string>
+   <string notr="true">background-color: rgb(5, 16, 32);
+font: 10pt &quot;Segoe UI&quot;;</string>
   </property>
   <widget class="QLabel" name="welcomeLabel">
    <property name="geometry">
@@ -50,7 +55,11 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>9</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="layoutDirection">
@@ -116,7 +125,11 @@ border-radius: 20px;</string>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>Segoe UI</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -148,7 +161,11 @@ border-radius: 20px;</string>
    </property>
    <property name="font">
     <font>
-     <pointsize>11</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -168,6 +185,22 @@ QPushButton:pressed{
    </property>
    <property name="text">
     <string>Confirm</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="wrongLabel">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>145</y>
+     <width>121</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 57, 60);</string>
+   </property>
+   <property name="text">
+    <string>*wrong password*</string>
    </property>
   </widget>
  </widget>

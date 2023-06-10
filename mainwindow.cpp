@@ -209,6 +209,7 @@ void MainWindow::clearLayout(QLayout *layout)
 void MainWindow::setDatabase(Database *db)
 {
     this->db = db;
+    db->save();
     updateDatabaseUI();
 }
 

@@ -13,7 +13,7 @@ loginDialog::loginDialog(QWidget *parent) :
     ui->setupUi(this);
     buttonStyle();
     connectComponents();
-    ui->lineEdit->setMaxLength(100);
+    ui->wrongLabel->hide();
 }
 
 loginDialog::~loginDialog()
@@ -30,7 +30,7 @@ void loginDialog::buttonStyle()
 
 void loginDialog::connectComponents()
 {
-    connect( ui->lineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->lineEdit); });
+    connect( ui->lineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->lineEdit); ui->wrongLabel->hide(); });
     connect( ui->confirmButton, SIGNAL( clicked() ), this, SLOT( confirmClicked() ) );
 }
 
@@ -46,7 +46,6 @@ void loginDialog::confirmClicked()
     }
     catch (Database::BadPasswordException)
     {
-        QMessageBox box(QMessageBox::Icon::Critical, "Wrong pass", "Wrong pass", QMessageBox::Ok, this);
-        box.exec();
+        ui->wrongLabel->show();
     }
 }

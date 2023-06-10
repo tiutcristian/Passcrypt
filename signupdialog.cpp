@@ -14,7 +14,7 @@ signupDialog::signupDialog(QWidget *parent) :
     buttonStyle();
     connectComponents();
     ui->enterLineEdit->setMaxLength(100);
-    ui->reenterLineEdit->setMaxLength(100);
+    ui->notMatchLabel->hide();
 }
 
 signupDialog::~signupDialog()
@@ -32,8 +32,8 @@ void signupDialog::buttonStyle()
 void signupDialog::connectComponents()
 {
     connect(ui->confirmButton, SIGNAL( clicked() ), this, SLOT( confirmClicked() ) );
-    connect(ui->enterLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->enterLineEdit); });
-    connect(ui->reenterLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->reenterLineEdit); });
+    connect(ui->enterLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->enterLineEdit); ui->notMatchLabel->hide(); });
+    connect(ui->reenterLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->reenterLineEdit); ui->notMatchLabel->hide(); });
 }
 
 void signupDialog::confirmClicked()
@@ -48,7 +48,6 @@ void signupDialog::confirmClicked()
     }
     else
     {
-        QMessageBox box(QMessageBox::Icon::Critical, "Error", "Passwords do not match", QMessageBox::Ok, this);
-        box.exec();
+        ui->notMatchLabel->show();
     }
 }
