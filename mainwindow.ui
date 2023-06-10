@@ -20,19 +20,21 @@
    <string>Passcrypt</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">*{
-	border: none;
-	padding: 0;
-	margin: 0;
+   <string notr="true">#centralwidget{
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(5, 16, 32, 255), stop:1 rgba(8, 27, 54, 255));
 }
 
-#centralwidget{
-	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:1, y2:0, stop:0 rgba(5, 16, 32, 255), stop:1 rgba(8, 27, 54, 255));
+#centralWidget&gt;*{
+	border: none;
 }
 
 #leftMenuSubcontainer{
 	background-color: rgb(52, 105, 157);
 	border-radius: 10px;
+}
+
+#frame_2, #frame_3, #logoFrame, #logoFrame_2, #logoFrame_3, #scrollArea{
+	border: none;
 }
 
 #leftMenuContainer QPushButton{
@@ -337,7 +339,7 @@
        <item row="0" column="0">
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="homePage">
           <layout class="QVBoxLayout" name="verticalLayout_5">

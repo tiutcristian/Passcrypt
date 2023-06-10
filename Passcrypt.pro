@@ -46,11 +46,4 @@ RESOURCES += \
 DISTFILES += \
     infos
 
-unix:!macx|win32: LIBS += -L$$PWD/'../Cryptlib compiled/' -lcryptopp
 LIBS += -lsodium
-
-INCLUDEPATH += $$PWD/'../Cryptlib compiled'
-DEPENDPATH += $$PWD/'../Cryptlib compiled'
-
-win32:!win32-g++: PRE_TARGETDEPS += $$PWD/'../Cryptlib compiled/cryptopp.lib'
-else:unix:!macx|win32-g++: PRE_TARGETDEPS += $$PWD/'../Cryptlib compiled/libcryptopp.a'

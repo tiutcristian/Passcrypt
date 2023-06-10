@@ -22,7 +22,7 @@ public:
     void add(const Entry &entry);
     void remove(const Entry &entry);
     void save();
-    bool availableTitle(std::string title, std::vector<Database::Entry> entries);
+    bool availableTitle(std::string title, std::vector<Database::Entry> entries, int indexToSkip);
 
 private:
     std::string masterPassword;

@@ -4,9 +4,10 @@
 #include <iostream>
 #include <QMessageBox>
 
-EditPass::EditPass(const Database::Entry &entry, Database *db) :
+EditPass::EditPass(int index, Database *db) :
     ui(new Ui::EditPass),
-    entry(entry),
+    index(index),
+    entry(db->entries[index]),
     db(db)
 {
     ui->setupUi(this);
@@ -79,7 +80,7 @@ void EditPass::editClicked()
 
 void EditPass::saveClicked()
 {
-    if(db->availableTitle(ui->titleLineEdit->text().toStdString(), db->entries))
+    if(db->availableTitle(ui->titleLineEdit->text().toStdString(), db->entries, index))
     {
         entry.title = ui->titleLineEdit->text().toStdString();
         entry.username = ui->idLineEdit->text().toStdString();

@@ -98,6 +98,11 @@ void print(string s, int lenmax)
 #include "encrypt.h"
 #include "sodium.h"
 #include <vector>
+#include <cstring>
+#include <cstdlib>
+#include <sstream>
+
+#define KEY_LEN crypto_secretstream_xchacha20poly1305_KEYBYTES
 
 std::string generatePassword(int len, char_options options)
 {
@@ -130,4 +135,78 @@ std::string generatePassword(int len, char_options options)
         pass += alphabet[index];
     }
     return pass;
+}
+
+void getKeyFromPass(std::string pass, unsigned char key[KEY_LEN])
+{
+    unsigned char salt[crypto_pwhash_SALTBYTES];
+
+    std::memset(salt, 0, crypto_pwhash_SALTBYTES);
+    if (crypto_pwhash
+        (key, KEY_LEN, pass.c_str(), pass.size(), salt,
+         crypto_pwhash_OPSLIMIT_INTERACTIVE, crypto_pwhash_MEMLIMIT_INTERACTIVE,
+         crypto_pwhash_ALG_DEFAULT) != 0) {
+        std::exit(1);
+    }
+}
+
+void encrypt(const string &s, const string &master, const string &fileName)
+{
+    unsigned char *buf_in = (unsigned char*)s.c_str();
+    unsigned char  buf_out[s.size() + crypto_secretstream_xchacha20poly1305_ABYTES];
+    unsigned char  header[crypto_secretstream_xchacha20poly1305_HEADERBYTES];
+    crypto_secretstream_xchacha20poly1305_state st;
+    unsigned long long out_len;
+
+    FILE *fp_t = fopen(fileName.c_str(), "wb");
+    unsigned char key[KEY_LEN];
+    getKeyFromPass(master, key);
+    crypto_secretstream_xchacha20poly1305_init_push(&st, header, key);
+    fwrite(header, 1, sizeof header, fp_t);
+
+    unsigned char tag = crypto_secretstream_xchacha20poly1305_TAG_FINAL;
+    crypto_secretstream_xchacha20poly1305_push(&st, buf_out, &out_len, buf_in, s.size(), NULL, 0, tag);
+    fwrite(buf_out, 1, (size_t) out_len, fp_t);
+
+    fclose(fp_t);
+}
+
+string decrypt(const string &fileName, const string &master)
+{
+    const int chunkSize = 1024;
+    unsigned char  buf_in[chunkSize + crypto_secretstream_xchacha20poly1305_ABYTES];
+    unsigned char  buf_out[chunkSize];
+    unsigned char  header[crypto_secretstream_xchacha20poly1305_HEADERBYTES];
+    crypto_secretstream_xchacha20poly1305_state st;
+    unsigned long long out_len;
+    size_t         rlen;
+    int            eof;
+    unsigned char  tag;
+    std::stringstream output;
+    FILE *fp_s = fopen(fileName.c_str(), "rb");
+    fread(header, 1, sizeof header, fp_s);
+    unsigned char key[KEY_LEN];
+    getKeyFromPass(master, key);
+    if (crypto_secretstream_xchacha20poly1305_init_pull(&st, header, key) != 0) {
+        fclose(fp_s);
+        throw "decryption error"; /* incomplete header */
+    }
+
+    do {
+        rlen = fread(buf_in, 1, sizeof buf_in, fp_s);
+        eof = feof(fp_s);
+        if (crypto_secretstream_xchacha20poly1305_pull(&st, buf_out, &out_len, &tag,
+                                                       buf_in, rlen, NULL, 0) != 0) {
+            fclose(fp_s);
+            throw "decryption error"; /* corrupted chunk */
+        }
+        if (tag == crypto_secretstream_xchacha20poly1305_TAG_FINAL && ! eof) {
+            fclose(fp_s);
+            throw "decryption error"; /* premature end (end of file reached before the end of the stream) */
+        }
+        output.write((char*)buf_out, out_len);
+    } while (! eof);
+
+    fclose(fp_s);
+    return output.str();
 }

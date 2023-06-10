@@ -2,48 +2,29 @@
 #include <QApplication>
 #include <QString>
 #include "encrypt.h"
-#include <cryptopp/default.h>
 #include <iostream>
 #include <QPalette>
 #include <QStyleFactory>
 #include "sodium.h"
 
-/*
-int foo() {
-    unsigned char myString[32];
-    uint32_t myInt;
+void setPalette(QApplication &a)
+{
+    a.setStyle(QStyleFactory::create("Fusion"));
+    QPalette p = qApp->palette();
 
-    randombytes_buf(myString, 32);
-    // myString will be an array of 32 random bytes, not null-terminated
-    myInt = randombytes_uniform(10);
-    // myInt will be a random number between 0 and 9
+    p.setColor(QPalette::Window, QColor(15,16,18));
+    p.setColor(QPalette::Button, QColor(33,36,51));
+    p.setColor(QPalette::ButtonText, QColor(107,146,215));
+    p.setColor(QPalette::WindowText, QColor(177,178,183));
+
+    a.setPalette(p);
 }
-*/
 
 int main(int argc, char *argv[])
 {
-    /*
-    try{
-        string e = encrypt("abc", "123");
-        string d = decrypt(e, "123");
-    }
-    catch (CryptoPP::KeyBadErr)
-    {
-        std::cout << "e" << std::endl;
-    }
-    */
     QApplication a(argc, argv);
+    setPalette(a);
     MainWindow mainw;
     return a.exec();
-
-    //foo();
-    /*
-    char_options co;
-    co.lowercase = 0;
-    co.uppercase = 0;
-    co.numbers = 0;
-    co.symbols = 0;
-    std::cout << generatePassword(20, co);
     return 0;
-    */
 }

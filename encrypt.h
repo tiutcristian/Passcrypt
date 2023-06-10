@@ -12,8 +12,8 @@ struct char_options
     bool symbols;
 };
 
-string encrypt(const string & s, const string & master);
-string decrypt(const string & s, const string & master);
+void encrypt(const string & s, const string & master, const string & fileName);
+string decrypt(const string & fileName, const string & master);
 string generatePassword(int len, char_options options);
 
 #endif // ENCRYPT_H

@@ -1,6 +1,8 @@
 #include "database.h"
 #include <fstream>
 #include <algorithm>
+#include <sstream>
+#include "encrypt.h"
 
 Database::Entry::Entry(): Entry("", "", "", "")
 {
@@ -42,9 +44,9 @@ void Database::remove(const Entry &entry)
 
 void Database::read()
 {
-    if(masterPassword == "")
+    try
     {
-        std::ifstream fin("database.txt");
+        std::stringstream fin (decrypt("database.txt", masterPassword));
         std::string name, id, description, pass;
         entries.clear();
         while(getline(fin, name))
@@ -54,29 +56,33 @@ void Database::read()
             getline(fin, pass);
             entries.push_back(Entry(name, id, description, pass));
         }
-        fin.close();
     }
-    else
+    catch(...)
+    {
         throw BadPasswordException();
+    }
 }
 
 void Database::save()
 {
-    std::ofstream fout("database.txt");
+    std::stringstream fout;
     for(const auto &elem : entries)
         fout << elem.title << '\n'
              << elem.username << '\n'
              << elem.description << '\n'
              << elem.pass << '\n';
-    fout.close();
+    encrypt(fout.str(), masterPassword, "database.txt");
 }
 
-bool Database::availableTitle(std::string title, std::vector<Entry> entries)
+bool Database::availableTitle(std::string title, std::vector<Entry> entries, int indexToSkip)
 {
     if(title.empty())
         return false;
-    for(const auto &it : entries)
-        if(it.title == title)
+    for(int i = 0; i < indexToSkip; i++)
+        if(entries[i].title == title)
+            return false;
+    for(int i = indexToSkip+1; i < (int)entries.size(); i++)
+        if(entries[i].title == title)
             return false;
     return true;
 }

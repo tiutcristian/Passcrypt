@@ -4,6 +4,7 @@
 #include "database.h"
 #include <string>
 #include <QStyle>
+#include <QMessageBox>
 
 signupDialog::signupDialog(QWidget *parent) :
     QDialog(parent),
@@ -40,12 +41,14 @@ void signupDialog::confirmClicked()
     if(ui->enterLineEdit->text() == ui->reenterLineEdit->text())
     {
         auto mainwindow = ((MainWindow*) parent());
-        mainwindow->setDatabase(new Database(true, ui->enterLineEdit->text().toStdString()));
+        Database *db = new Database(true, ui->enterLineEdit->text().toStdString());
+        mainwindow->setDatabase(db);
         mainwindow->show();
         this->close();
     }
     else
     {
-        //messagebox
+        QMessageBox box(QMessageBox::Icon::Critical, "Error", "Passwords do not match", QMessageBox::Ok, this);
+        box.exec();
     }
 }

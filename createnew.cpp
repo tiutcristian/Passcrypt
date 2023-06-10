@@ -94,7 +94,7 @@ void CreateNew::descriptionChanged()
 
 void CreateNew::saveClicked()
 {
-    if(db->availableTitle(ui->titleLineEdit->text().toStdString(), db->entries))
+    if(db->availableTitle(ui->titleLineEdit->text().toStdString(), db->entries, -1))
     {
         save = true;
         title = ui->titleLineEdit->text().toStdString();

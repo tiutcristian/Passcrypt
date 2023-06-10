@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <QStyle>
+#include <QMessageBox>
 
 loginDialog::loginDialog(QWidget *parent) :
     QDialog(parent),
@@ -35,13 +36,17 @@ void loginDialog::connectComponents()
 
 void loginDialog::confirmClicked()
 {
-    try {
+    try
+    {
         auto db = new Database(false, ui->lineEdit->text().toStdString());
         auto mainwindow = ((MainWindow*) parent());
         mainwindow->setDatabase(db);
         mainwindow->show();
         this->close();
-    }  catch (Database::BadPasswordException) {
-        ;//messagebox
+    }
+    catch (Database::BadPasswordException)
+    {
+        QMessageBox box(QMessageBox::Icon::Critical, "Wrong pass", "Wrong pass", QMessageBox::Ok, this);
+        box.exec();
     }
 }
