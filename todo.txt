@@ -1,16 +1,20 @@
 ---------------------------------------------------------------
 
-- Change master password
+Change master password
 
 ---------------------------------------------------------------
 
-- Advanced Button
+Home page description + help
+
+---------------------------------------------------------------
+
+Advanced Button
 	- by default 	- all 4 char types selected
 				- len = 20
 	- advanced	--> geometryAnimation
 
 ---------------------------------------------------------------
 
-- double click on password/id ==> copy to clipboard
+Double click on password/id ==> copy to clipboard
 
 ---------------------------------------------------------------
