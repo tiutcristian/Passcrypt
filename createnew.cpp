@@ -10,6 +10,7 @@
 #include <QPainter>
 #include "encrypt.h"
 #include <QMessageBox>
+#include "constants.h"
 
 void CreateNew::buttonsStyle()
 {
@@ -44,14 +45,21 @@ void CreateNew::connectComponents()
     connect(ui->titleLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->titleLineEdit); });
     connect(ui->idLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->idLineEdit); });
     connect(ui->passwordLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->passwordLineEdit); });
-    connect(ui->descriptionTextEdit, SIGNAL( textChanged() ), this, SLOT( descriptionChanged() ));
-    connect(ui->advancedButton, SIGNAL( clicked()), this, SLOT( advancedClicked()) );
-    connect(ui->saveButton, SIGNAL( clicked()), this, SLOT( saveClicked()) );
-    connect(ui->cancelButton, SIGNAL( clicked()), this, SLOT( cancelClicked()) );
+    connect(ui->descriptionTextEdit, SIGNAL(textChanged()), this, SLOT(descriptionChanged()));
+    connect(ui->advancedButton, SIGNAL(clicked()), this, SLOT(advancedClicked()));
+    connect(ui->upperButton, &QPushButton::clicked, [=](){ charOptionsClicked(upperToggled, ui->upperButton); });
+    connect(ui->lowerButton, &QPushButton::clicked, [=](){ charOptionsClicked(lowerToggled, ui->lowerButton); });
+    connect(ui->numbersButton, &QPushButton::clicked, [=](){ charOptionsClicked(numbersToggled, ui->numbersButton); });
+    connect(ui->symbolsButton, &QPushButton::clicked, [=](){ charOptionsClicked(symbolsToggled, ui->symbolsButton); });
+    connect(ui->regenerateButton, SIGNAL(clicked()), this, SLOT(regenerateClicked()));
+    connect(ui->shrinkButton, &QPushButton::clicked, [=](){ shrinkAdvancedMenu(); });
+    connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveClicked()));
+    connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(cancelClicked()));
 }
 
 void CreateNew::expandAdvancedMenu()
 {
+    advancedToggled = 1;
     auto anim = new QPropertyAnimation(ui->advancedFrame, "geometry");
     anim->setDuration(300);
     anim->setStartValue(ui->advancedFrame->geometry());
@@ -61,11 +69,26 @@ void CreateNew::expandAdvancedMenu()
 
 void CreateNew::shrinkAdvancedMenu()
 {
+    advancedToggled = 0;
     auto anim = new QPropertyAnimation(ui->advancedFrame, "geometry");
     anim->setDuration(300);
     anim->setStartValue(ui->advancedFrame->geometry());
     anim->setEndValue(QRect(10, 230, 310, 0));
     anim->start();
+}
+
+void CreateNew::charOptionsClicked(bool &toggled, QWidget *widget)
+{
+    if(toggled)
+    {
+        toggled = 0;
+        widget->setStyleSheet(AdvancedFrameButtonDisabledStylesheet);
+    }
+    else
+    {
+        toggled = 1;
+        widget->setStyleSheet("");
+    }
 }
 
 CreateNew::CreateNew(const bool &autoGenerate, Database *db) :
@@ -121,15 +144,14 @@ void CreateNew::descriptionChanged()
 void CreateNew::advancedClicked()
 {
     if(!advancedToggled)
-    {
-        advancedToggled = 1;
         expandAdvancedMenu();
-    }
     else
-    {
-        advancedToggled = 0;
         shrinkAdvancedMenu();
-    }
+}
+
+void CreateNew::regenerateClicked()
+{
+    ;
 }
 
 void CreateNew::saveClicked()

@@ -112,7 +112,7 @@ void MainWindow::updateDatabaseUI()
         passwid->setLayout(passhlay);
         ui->passLayout->addWidget(passwid);
 
-        ui->passwordsSubcontainer->setStyleSheet(PasswordsSubContainerStyleSheet);
+        ui->passwordsSubcontainer->setStyleSheet(PasswordsSubContainerStylesheet);
     }
     if(isEmpty)
     {

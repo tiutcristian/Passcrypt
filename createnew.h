@@ -22,12 +22,17 @@ private:
     bool save = 0;
     Database *db;
     bool advancedToggled = 0;
+    bool upperToggled = 1;
+    bool lowerToggled = 1;
+    bool numbersToggled = 1;
+    bool symbolsToggled = 1;
 
     void buttonsStyle();
     void initialState(const bool &autoGenerate);
     void connectComponents();
     void expandAdvancedMenu();
     void shrinkAdvancedMenu();
+    void charOptionsClicked(bool &toggled, QWidget *widget);
 
 public:
     CreateNew(const bool &autoGenerate, Database *db);
@@ -42,6 +47,7 @@ public:
 public slots:
     void descriptionChanged();
     void advancedClicked();
+    void regenerateClicked();
     void saveClicked();
     void cancelClicked();
 };
