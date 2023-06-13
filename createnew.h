@@ -21,10 +21,13 @@ private:
     std::string description;
     bool save = 0;
     Database *db;
+    bool advancedToggled = 0;
 
     void buttonsStyle();
     void initialState(const bool &autoGenerate);
     void connectComponents();
+    void expandAdvancedMenu();
+    void shrinkAdvancedMenu();
 
 public:
     CreateNew(const bool &autoGenerate, Database *db);
@@ -38,6 +41,7 @@ public:
 
 public slots:
     void descriptionChanged();
+    void advancedClicked();
     void saveClicked();
     void cancelClicked();
 };

@@ -39,7 +39,7 @@
 	font-size: 15pt;
 }
 
-#mainWidget QFrame{
+#titleFrame, #idFrame, #passwordFrame, #descriptionFrame{
 	background-color: rgb(52, 105, 157);
 	border-radius: 20px;
 }
@@ -56,12 +56,34 @@
 
 #mainWidget QTextEdit{
 	color: rgba(153, 234, 255, 70);
+	background-color: rgb(52, 105, 157);
+	border: no-border;
 }
 
 #mainWidget QLabel{
 	color: rgb(220, 220, 220);
 	font-size: 10pt;
 	background: none;
+}
+
+#advancedButton{
+	color: rgb(220, 220, 220);	
+	background-color: rgba(5, 16, 32, 0);
+	border:none;
+	font-size: 10pt;
+}
+
+#advancedButton:hover{
+	color: rgb(190, 190, 190);
+}
+
+#advancedButton:pressed{
+	color: rgb(160, 160, 160);
+}
+
+#advancedFrame{
+	background-color: rgb(57, 73, 94);
+	border-radius: 20px;
 }
 
 #saveButton {
@@ -1005,6 +1027,51 @@
        <string>Description:</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="advancedButton">
+      <property name="geometry">
+       <rect>
+        <x>249</x>
+        <y>190</y>
+        <width>71</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Advanced</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="advancedFrame">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>229</y>
+        <width>310</width>
+        <height>0</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <zorder>titleFrame</zorder>
+     <zorder>idFrame</zorder>
+     <zorder>descriptionFrame</zorder>
+     <zorder>titleLabel</zorder>
+     <zorder>idLabel</zorder>
+     <zorder>passwordLabel</zorder>
+     <zorder>descriptionLabel</zorder>
+     <zorder>advancedButton</zorder>
+     <zorder>advancedFrame</zorder>
+     <zorder>passwordFrame</zorder>
     </widget>
    </item>
    <item>

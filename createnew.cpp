@@ -38,8 +38,27 @@ void CreateNew::connectComponents()
     connect(ui->idLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->idLineEdit); });
     connect(ui->passwordLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->passwordLineEdit); });
     connect(ui->descriptionTextEdit, SIGNAL( textChanged() ), this, SLOT( descriptionChanged() ));
+    connect(ui->advancedButton, SIGNAL( clicked()), this, SLOT( advancedClicked()) );
     connect(ui->saveButton, SIGNAL( clicked()), this, SLOT( saveClicked()) );
     connect(ui->cancelButton, SIGNAL( clicked()), this, SLOT( cancelClicked()) );
+}
+
+void CreateNew::expandAdvancedMenu()
+{
+    auto anim = new QPropertyAnimation(ui->advancedFrame, "geometry");
+    anim->setDuration(300);
+    anim->setStartValue(ui->advancedFrame->geometry());
+    anim->setEndValue(QRect(10, 230, 310, 200));
+    anim->start();
+}
+
+void CreateNew::shrinkAdvancedMenu()
+{
+    auto anim = new QPropertyAnimation(ui->advancedFrame, "geometry");
+    anim->setDuration(300);
+    anim->setStartValue(ui->advancedFrame->geometry());
+    anim->setEndValue(QRect(10, 230, 310, 0));
+    anim->start();
 }
 
 CreateNew::CreateNew(const bool &autoGenerate, Database *db) :
@@ -90,6 +109,20 @@ void CreateNew::descriptionChanged()
         ui->descriptionTextEdit->setStyleSheet("color: rgba(153, 234, 255, 70);");
     else
         ui->descriptionTextEdit->setStyleSheet("color: rgba(153, 234, 255, 255);");
+}
+
+void CreateNew::advancedClicked()
+{
+    if(!advancedToggled)
+    {
+        advancedToggled = 1;
+        expandAdvancedMenu();
+    }
+    else
+    {
+        advancedToggled = 0;
+        shrinkAdvancedMenu();
+    }
 }
 
 void CreateNew::saveClicked()
