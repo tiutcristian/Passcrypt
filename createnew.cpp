@@ -13,6 +13,13 @@
 
 void CreateNew::buttonsStyle()
 {
+    ui->advancedButton->setCursor(Qt::PointingHandCursor);
+    ui->upperButton->setCursor(Qt::PointingHandCursor);
+    ui->lowerButton->setCursor(Qt::PointingHandCursor);
+    ui->numbersButton->setCursor(Qt::PointingHandCursor);
+    ui->symbolsButton->setCursor(Qt::PointingHandCursor);
+    ui->regenerateButton->setCursor(Qt::PointingHandCursor);
+    ui->shrinkButton->setCursor(Qt::PointingHandCursor);
     ui->saveButton->setCursor(Qt::PointingHandCursor);
     ui->cancelButton->setCursor(Qt::PointingHandCursor);
 }

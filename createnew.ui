@@ -86,6 +86,21 @@
 	border-radius: 20px;
 }
 
+#advancedFrame QPushButton{
+	color: rgb(220, 220, 220);
+	font: 9pt &quot;Segoe UI&quot;;
+	border-radius: 12;
+	background-color: rgb(52, 105, 157);
+}
+
+#advancedFrame QPushButton:hover{
+	background-color: rgb(60, 122, 181);
+}
+
+#advancedFrame QPushButton:pressed{
+	background-color: rgb(52, 105, 157);
+}
+
 #saveButton {
 	border-radius: 15px;
 	background-color: rgb(59, 119, 179);
@@ -1061,6 +1076,294 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QPushButton" name="upperButton">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>80</y>
+         <width>111</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>9</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Uppercase</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="regenerateButton">
+       <property name="geometry">
+        <rect>
+         <x>105</x>
+         <y>155</y>
+         <width>100</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>9</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	border-radius: 15px;
+	border: 2px solid #99EAFF;
+	color: rgb(153, 234, 255);
+	background-color: rgb(57, 73, 94);
+}
+
+QPushButton:hover{
+	border: 2px solid #c9f4ff;
+	color: #c9f4ff;
+}
+
+QPushButton:pressed{
+	border: 2px solid #99EAFF;
+	color: rgb(153, 234, 255);
+}</string>
+       </property>
+       <property name="text">
+        <string>Re-generate</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="numbersButton">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>115</y>
+         <width>111</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>9</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Numbers</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="symbolsButton">
+       <property name="geometry">
+        <rect>
+         <x>159</x>
+         <y>115</y>
+         <width>111</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>9</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Symbols</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="lowerButton">
+       <property name="geometry">
+        <rect>
+         <x>159</x>
+         <y>80</y>
+         <width>111</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>9</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Lowercase</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lengthLabel">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>45</y>
+         <width>51</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Length:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lengthLineEdit">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>45</y>
+         <width>191</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(57, 73, 94);
+border: 1px solid #34699D;
+border-radius: 12px;
+padding-right: 4px;</string>
+       </property>
+       <property name="text">
+        <string>20</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="placeholderText">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="shrinkButton">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>175</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(57, 73, 94, 0);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/icons/icons/chevron-up.svg</normaloff>:/icons/icons/chevron-up.svg</iconset>
+       </property>
+      </widget>
      </widget>
      <zorder>titleFrame</zorder>
      <zorder>idFrame</zorder>
@@ -1195,6 +1498,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
