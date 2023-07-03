@@ -35,7 +35,7 @@ private:
     void charOptionsClicked(bool &toggled, QWidget *widget);
 
 public:
-    CreateNew(const bool &autoGenerate, Database *db);
+    CreateNew(bool autoGenerate, Database *db);
     ~CreateNew();
 
     std::string getPassword(){ return password; }

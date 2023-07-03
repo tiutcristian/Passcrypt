@@ -6,6 +6,7 @@
 #include "database.h"
 #include "editpass.h"
 #include <QMainWindow>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +20,8 @@ private:
     Ui::MainWindow *ui;
     Database* db;
     bool createNewToggled = 0;
+    QTimer timer;
+    std::string lastClipboardItem;
 
     void initialDialog();
     void connectComponents();
@@ -26,12 +29,12 @@ private:
     void initialState();
     void uncheckAllButtons(QObject* widget);
     void updateDatabaseUI();
-    void copyToClipboard(const QString &text);
     void openEditPass(Database::Entry &entry, int index);
     void deletePass(Database::Entry &entry);
     void geometryAnimation(QWidget* target, const int &x, const int &y, const int &w, const int &h, const int &d);
     void expandDatabaseCreateToolbar();
     void shrinkDatabaseCreateToolbar();
+    void copyClicked(std::string s);
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -49,5 +52,6 @@ public slots:
     void autoClicked();
     void manualClicked();
     void helpPressed();
+    void clipboardTimedOut();
 };
 #endif // MAINWINDOW_H

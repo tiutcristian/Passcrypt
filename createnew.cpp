@@ -91,7 +91,7 @@ void CreateNew::charOptionsClicked(bool &toggled, QWidget *widget)
     }
 }
 
-CreateNew::CreateNew(const bool &autoGenerate, Database *db) :
+CreateNew::CreateNew(bool autoGenerate, Database *db) :
     ui(new Ui::CreateNew),
     db(db)
 {

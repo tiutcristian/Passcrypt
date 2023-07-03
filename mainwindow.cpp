@@ -8,11 +8,11 @@
 #include <iostream>
 #include <QStyle>
 #include <QPropertyAnimation>
-#include <QClipboard>
 #include <QLineEdit>
 #include <QSizePolicy>
 #include "constants.h"
 #include <QMessageBox>
+#include "clipboard.h"
 
 void MainWindow::initialDialog()
 {
@@ -33,6 +33,7 @@ void MainWindow::connectComponents()
     connect(ui->newButton, SIGNAL(clicked()), this, SLOT(createNewClicked()));
     connect(ui->autoButton, SIGNAL(clicked()), this, SLOT(autoClicked()));
     connect(ui->manualButton, SIGNAL(clicked()), this, SLOT(manualClicked()));
+    connect(&timer, SIGNAL(timeout()), this, SLOT(clipboardTimedOut()));
 }
 
 void MainWindow::buttonStyle()
@@ -92,7 +93,7 @@ void MainWindow::updateDatabaseUI()
         copyButton->setCursor(Qt::PointingHandCursor);
         copyButton->setMinimumHeight(25);
         copyButton->setMaximumWidth(60);
-        connect(copyButton, &QPushButton::clicked, [&crt, this](){ copyToClipboard(QString::fromStdString(crt.pass)); });
+        connect(copyButton, &QPushButton::clicked, [&crt, this](){ copyClicked(crt.pass); });
 
         auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " edit");
         passhlay->addWidget(editButton);
@@ -121,12 +122,6 @@ void MainWindow::updateDatabaseUI()
         auto emptywid = new QWidget; emptywid->setLayout(emptyhlay);
         ui->passLayout->addWidget(emptywid);
     }
-}
-
-void MainWindow::copyToClipboard(const QString &text)
-{
-    QClipboard* clipboard = QApplication::clipboard();
-    clipboard->setText(text);
 }
 
 void MainWindow::openEditPass(Database::Entry &entry, int index)
@@ -172,6 +167,17 @@ void MainWindow::shrinkDatabaseCreateToolbar()
     geometryAnimation(ui->autoButton, 0, 0, 40, 40, 300);
     geometryAnimation(ui->manualButton, 0, 0, 40, 40, 300);
     createNewToggled = 0;
+}
+
+void MainWindow::copyClicked(std::string s)
+{
+    if( timer.isActive() )
+        timer.stop();
+    copyToClipboard(s);
+    lastClipboardItem = s;
+    std::cout << "copied \n";
+    std::cout.flush();
+    timer.start(10000);
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -276,4 +282,20 @@ void MainWindow::helpPressed()
 {
     uncheckAllButtons(ui->leftMenuContainer);
     ui->stackedWidget->setCurrentWidget(ui->helpPage);
+}
+
+void MainWindow::clipboardTimedOut()
+{
+    timer.stop();
+    if(checkClipboardContent(lastClipboardItem))
+    {
+        clearClipboard();
+        std::cout << "timeout \n";
+        std::cout.flush();
+    }
+    else
+    {
+        std::cout << "not cleared \n";
+        std::cout.flush();
+    }
 }
