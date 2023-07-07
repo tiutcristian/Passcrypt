@@ -2,7 +2,7 @@
 
 const char* PasswordsSubContainerStylesheet =
     "#passwordsSubcontainer{"
-    "    background-color: rgb(57, 73, 94);"
+    "    background-color: rgb(57, 73, 94); "
     "    border-radius: 26px;"
     "}"
     ""

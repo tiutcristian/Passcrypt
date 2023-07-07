@@ -47,6 +47,7 @@ public:
 public slots:
     void homePressed();
     void getStartedClicked();
+    void plusPressed();
     void databasePressed();
     void createNewClicked();
     void autoClicked();

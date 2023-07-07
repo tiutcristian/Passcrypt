@@ -27,6 +27,7 @@ void MainWindow::initialDialog()
 void MainWindow::connectComponents()
 {
     connect(ui->homeButton, SIGNAL(pressed()), this, SLOT(homePressed()));
+    connect(ui->plusButton, SIGNAL(pressed()), this, SLOT(plusPressed()));
     connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
     connect(ui->getStartedButton, SIGNAL(clicked()), this, SLOT(getStartedClicked()));
@@ -39,6 +40,7 @@ void MainWindow::connectComponents()
 void MainWindow::buttonStyle()
 {
     ui->homeButton->setCursor(Qt::PointingHandCursor);
+    ui->plusButton->setCursor(Qt::PointingHandCursor);
     ui->databaseButton->setCursor(Qt::PointingHandCursor);
     ui->helpButton->setCursor(Qt::PointingHandCursor);
     ui->getStartedButton->setCursor(Qt::PointingHandCursor);
@@ -230,6 +232,12 @@ void MainWindow::getStartedClicked()
     uncheckAllButtons(ui->leftMenuContainer);
     ui->databaseButton->setChecked(true);
     ui->stackedWidget->setCurrentWidget(ui->databasePage);
+}
+
+void MainWindow::plusPressed()
+{
+    uncheckAllButtons(ui->leftMenuContainer);
+    ui->stackedWidget->setCurrentWidget(ui->plusPage);
 }
 
 void MainWindow::databasePressed()
