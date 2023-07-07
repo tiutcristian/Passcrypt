@@ -11,6 +11,7 @@
 #include "encrypt.h"
 #include <QMessageBox>
 #include "constants.h"
+#include <cstdlib>
 
 void CreateNew::buttonsStyle()
 {
@@ -35,6 +36,7 @@ void CreateNew::initialState(const bool &autoGenerate)
         co.numbers = true;
         co.symbols = true;
         ui->passwordLineEdit->setText(QString::fromStdString( generatePassword(20, co) ));
+        ui->passwordLineEdit->setDisabled(1);
     }
     else
         ui->passwordLineEdit->setPlaceholderText("Enter password...");
@@ -151,7 +153,15 @@ void CreateNew::advancedClicked()
 
 void CreateNew::regenerateClicked()
 {
-    ;
+    char_options co;
+    co.lowercase = lowerToggled;
+    co.uppercase = upperToggled;
+    co.numbers = numbersToggled;
+    co.symbols = symbolsToggled;
+    int length = atoi( ui->lengthLineEdit->text().toStdString().c_str() );
+    std::string newPass = generatePassword(length, co);
+    ui->passwordLineEdit->setText(QString::fromStdString(newPass));
+    ui->passwordLineEdit->setCursorPosition(0);         // + disabled line edit
 }
 
 void CreateNew::saveClicked()
