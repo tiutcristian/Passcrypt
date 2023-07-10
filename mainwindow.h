@@ -45,6 +45,7 @@ private:
     void charOptionsClicked(bool &toggled, QWidget *widget);
 
     // database page methods
+    void clearLayout(QLayout *layout);
     void updateDatabaseUI();
     void expandDatabaseCreateToolbar();
     void shrinkDatabaseCreateToolbar();
@@ -59,9 +60,6 @@ public:
     // general variables
     loginDialog ld;
     signupDialog sd;
-
-    // database page methods
-    void clearLayout(QLayout *layout);
 
     //general mathods
     void setDatabase(Database* db);

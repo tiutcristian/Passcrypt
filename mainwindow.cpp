@@ -4,16 +4,17 @@
 #include "signupdialog.h"
 #include "createnew.h"
 #include "editpass.h"
+#include "encrypt.h"
+#include "clipboard.h"
+#include "constants.h"
+
 #include <fstream>
-#include <iostream>
+//#include <iostream>
 #include <QStyle>
 #include <QPropertyAnimation>
 #include <QLineEdit>
 #include <QSizePolicy>
-#include "constants.h"
 #include <QMessageBox>
-#include "clipboard.h"
-#include "encrypt.h"
 
 void MainWindow::initialDialog()
 {
@@ -27,46 +28,60 @@ void MainWindow::initialDialog()
 
 void MainWindow::connectComponents()
 {
+    // left menu buttons
     connect(ui->homeButton, SIGNAL(pressed()), this, SLOT(homePressed()));
     connect(ui->plusButton, SIGNAL(pressed()), this, SLOT(zapPressed()));
     connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
+
+    // home page buttons
     connect(ui->getStartedButton, SIGNAL(clicked()), this, SLOT(getStartedClicked()));
-    connect(ui->newButton, SIGNAL(clicked()), this, SLOT(createNewClicked()));
-    connect(ui->autoButton, SIGNAL(clicked()), this, SLOT(autoClicked()));
-    connect(ui->manualButton, SIGNAL(clicked()), this, SLOT(manualClicked()));
-    connect(&timer, SIGNAL(timeout()), this, SLOT(clipboardTimedOut()));
+
+    // fast generate page buttons
+    connect(ui->copyButton, SIGNAL(clicked()), this, SLOT(fastCopyClicked()));
     connect(ui->upperButton, &QPushButton::clicked, [=](){ charOptionsClicked(upperToggled, ui->upperButton); });
     connect(ui->lowerButton, &QPushButton::clicked, [=](){ charOptionsClicked(lowerToggled, ui->lowerButton); });
     connect(ui->numbersButton, &QPushButton::clicked, [=](){ charOptionsClicked(numbersToggled, ui->numbersButton); });
     connect(ui->symbolsButton, &QPushButton::clicked, [=](){ charOptionsClicked(symbolsToggled, ui->symbolsButton); });
-    connect(ui->copyButton, SIGNAL(clicked()), this, SLOT(fastCopyClicked()));
     connect(ui->generateButton, SIGNAL(clicked()), this, SLOT(generateClicked()));
+
+    // database page buttons
+    connect(ui->newButton, SIGNAL(clicked()), this, SLOT(createNewClicked()));
+    connect(ui->autoButton, SIGNAL(clicked()), this, SLOT(autoClicked()));
+    connect(ui->manualButton, SIGNAL(clicked()), this, SLOT(manualClicked()));
+
+    //other
+    connect(&timer, SIGNAL(timeout()), this, SLOT(clipboardTimedOut()));
 }
 
 void MainWindow::buttonStyle()
 {
+    std::vector<QPushButton*> v;
+
     // left menu buttons
-    ui->homeButton->setCursor(Qt::PointingHandCursor);
-    ui->plusButton->setCursor(Qt::PointingHandCursor);
-    ui->databaseButton->setCursor(Qt::PointingHandCursor);
-    ui->helpButton->setCursor(Qt::PointingHandCursor);
+    v.push_back(ui->homeButton);
+    v.push_back(ui->plusButton);
+    v.push_back(ui->databaseButton);
+    v.push_back(ui->helpButton);
 
     // home page buttons
-    ui->getStartedButton->setCursor(Qt::PointingHandCursor);
+    v.push_back(ui->getStartedButton);
 
     // fast generate page buttons
-    ui->copyButton->setCursor(Qt::PointingHandCursor);
-    ui->upperButton->setCursor(Qt::PointingHandCursor);
-    ui->lowerButton->setCursor(Qt::PointingHandCursor);
-    ui->numbersButton->setCursor(Qt::PointingHandCursor);
-    ui->symbolsButton->setCursor(Qt::PointingHandCursor);
-    ui->generateButton->setCursor(Qt::PointingHandCursor);
+    v.push_back(ui->copyButton);
+    v.push_back(ui->upperButton);
+    v.push_back(ui->lowerButton);
+    v.push_back(ui->numbersButton);
+    v.push_back(ui->symbolsButton);
+    v.push_back(ui->generateButton);
 
     // database page buttons
-    ui->newButton->setCursor(Qt::PointingHandCursor);
-    ui->autoButton->setCursor(Qt::PointingHandCursor);
-    ui->manualButton->setCursor(Qt::PointingHandCursor);
+    v.push_back(ui->newButton);
+    v.push_back(ui->autoButton);
+    v.push_back(ui->manualButton);
+
+    for(auto crt : v)
+        crt->setCursor(Qt::PointingHandCursor);
 }
 
 void MainWindow::initialState()
@@ -152,8 +167,8 @@ void MainWindow::copyClicked(std::string s)
         timer.stop();
     copyToClipboard(s);
     lastClipboardItem = s;
-    std::cout << "copied \n";
-    std::cout.flush();
+    //std::cout << "copied \n";
+    //std::cout.flush();
     timer.start(10000);
 }
 
@@ -265,7 +280,8 @@ void MainWindow::zapPressed()
     int length = atoi( ui->lengthLineEdit->text().toStdString().c_str() );
     std::string newPass = generatePassword(length, co);
     ui->passwordLineEdit_2->setText(QString::fromStdString(newPass));
-    ui->passwordLineEdit_2->setCursorPosition(0);         // + disabled line edit
+    ui->passwordLineEdit_2->setDisabled(1);
+    ui->passwordLineEdit_2->setCursorPosition(0);
     ui->stackedWidget->setCurrentWidget(ui->plusPage);
 }
 
@@ -358,8 +374,8 @@ void MainWindow::fastCopyClicked()
     std::string s = ui->passwordLineEdit_2->text().toStdString();
     copyToClipboard(s);
     lastClipboardItem = s;
-    std::cout << "copied \n";
-    std::cout.flush();
+    //std::cout << "copied \n";
+    //std::cout.flush();
     timer.start(10000);
 }
 
@@ -373,5 +389,6 @@ void MainWindow::generateClicked()
     int length = atoi( ui->lengthLineEdit->text().toStdString().c_str() );
     std::string newPass = generatePassword(length, co);
     ui->passwordLineEdit_2->setText(QString::fromStdString(newPass));
-    ui->passwordLineEdit_2->setCursorPosition(0);         // + disabled line edit
+    ui->passwordLineEdit_2->setDisabled(1);
+    ui->passwordLineEdit_2->setCursorPosition(0);
 }

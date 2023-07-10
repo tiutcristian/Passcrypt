@@ -161,7 +161,7 @@ void CreateNew::regenerateClicked()
     int length = atoi( ui->lengthLineEdit->text().toStdString().c_str() );
     std::string newPass = generatePassword(length, co);
     ui->passwordLineEdit->setText(QString::fromStdString(newPass));
-    ui->passwordLineEdit->setCursorPosition(0);         // + disabled line edit
+    ui->passwordLineEdit->setCursorPosition(0);
 }
 
 void CreateNew::saveClicked()

@@ -890,6 +890,7 @@ QPushButton:pressed{
 	border: 2px solid #99EAFF;
 	color: rgb(153, 234, 255);
 	background-color: rgb(57, 73, 94);
+	font: 11pt &quot;Segoe UI&quot;;
 }
 
 #generateButton:hover{
@@ -932,7 +933,7 @@ QPushButton:pressed{
                  <property name="font">
                   <font>
                    <family>Segoe UI</family>
-                   <pointsize>9</pointsize>
+                   <pointsize>11</pointsize>
                    <weight>50</weight>
                    <italic>false</italic>
                    <bold>false</bold>
@@ -1753,8 +1754,8 @@ QPushButton:pressed{
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>52</width>
-                      <height>18</height>
+                      <width>100</width>
+                      <height>30</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_8">

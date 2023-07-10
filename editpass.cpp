@@ -43,9 +43,12 @@ void EditPass::connectComponents()
 void EditPass::initialState()
 {
     ui->titleLineEdit->setText(QString::fromStdString(entry.title));
+    ui->titleLineEdit->setCursorPosition(0);
     ui->idLineEdit->setText(QString::fromStdString(entry.username));
+    ui->idLineEdit->setCursorPosition(0);
     ui->descriptionTextEdit->setText(QString::fromStdString(entry.description));
     ui->passwordLineEdit->setText(QString::fromStdString(entry.pass));
+    ui->passwordLineEdit->setCursorPosition(0);
     setFocus(Qt::NoFocusReason);
 }
 
