@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "logindialog.h"
 #include "signupdialog.h"
@@ -13,6 +13,7 @@
 #include "constants.h"
 #include <QMessageBox>
 #include "clipboard.h"
+#include "encrypt.h"
 
 void MainWindow::initialDialog()
 {
@@ -27,7 +28,7 @@ void MainWindow::initialDialog()
 void MainWindow::connectComponents()
 {
     connect(ui->homeButton, SIGNAL(pressed()), this, SLOT(homePressed()));
-    connect(ui->plusButton, SIGNAL(pressed()), this, SLOT(plusPressed()));
+    connect(ui->plusButton, SIGNAL(pressed()), this, SLOT(zapPressed()));
     connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
     connect(ui->getStartedButton, SIGNAL(clicked()), this, SLOT(getStartedClicked()));
@@ -35,15 +36,34 @@ void MainWindow::connectComponents()
     connect(ui->autoButton, SIGNAL(clicked()), this, SLOT(autoClicked()));
     connect(ui->manualButton, SIGNAL(clicked()), this, SLOT(manualClicked()));
     connect(&timer, SIGNAL(timeout()), this, SLOT(clipboardTimedOut()));
+    connect(ui->upperButton, &QPushButton::clicked, [=](){ charOptionsClicked(upperToggled, ui->upperButton); });
+    connect(ui->lowerButton, &QPushButton::clicked, [=](){ charOptionsClicked(lowerToggled, ui->lowerButton); });
+    connect(ui->numbersButton, &QPushButton::clicked, [=](){ charOptionsClicked(numbersToggled, ui->numbersButton); });
+    connect(ui->symbolsButton, &QPushButton::clicked, [=](){ charOptionsClicked(symbolsToggled, ui->symbolsButton); });
+    connect(ui->copyButton, SIGNAL(clicked()), this, SLOT(fastCopyClicked()));
+    connect(ui->generateButton, SIGNAL(clicked()), this, SLOT(generateClicked()));
 }
 
 void MainWindow::buttonStyle()
 {
+    // left menu buttons
     ui->homeButton->setCursor(Qt::PointingHandCursor);
     ui->plusButton->setCursor(Qt::PointingHandCursor);
     ui->databaseButton->setCursor(Qt::PointingHandCursor);
     ui->helpButton->setCursor(Qt::PointingHandCursor);
+
+    // home page buttons
     ui->getStartedButton->setCursor(Qt::PointingHandCursor);
+
+    // fast generate page buttons
+    ui->copyButton->setCursor(Qt::PointingHandCursor);
+    ui->upperButton->setCursor(Qt::PointingHandCursor);
+    ui->lowerButton->setCursor(Qt::PointingHandCursor);
+    ui->numbersButton->setCursor(Qt::PointingHandCursor);
+    ui->symbolsButton->setCursor(Qt::PointingHandCursor);
+    ui->generateButton->setCursor(Qt::PointingHandCursor);
+
+    // database page buttons
     ui->newButton->setCursor(Qt::PointingHandCursor);
     ui->autoButton->setCursor(Qt::PointingHandCursor);
     ui->manualButton->setCursor(Qt::PointingHandCursor);
@@ -102,14 +122,14 @@ void MainWindow::updateDatabaseUI()
         editButton->setCursor(Qt::PointingHandCursor);
         editButton->setMinimumHeight(25);
         editButton->setMaximumWidth(60);
-        connect(editButton, &QPushButton::clicked, [&crt, this, index](){ openEditPass(crt, index); });
+        connect(editButton, &QPushButton::clicked, [&crt, this, index](){ editClicked(crt, index); });
 
         auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " delete");
         passhlay->addWidget(deleteButton);
         deleteButton->setCursor(Qt::PointingHandCursor);
         deleteButton->setMinimumHeight(25);
         deleteButton->setMaximumWidth(60);
-        connect(deleteButton, &QPushButton::clicked, [&crt, this](){ deletePass(crt); });
+        connect(deleteButton, &QPushButton::clicked, [&crt, this](){ deleteClicked(crt); });
 
         auto passwid = new QWidget;
         passwid->setLayout(passhlay);
@@ -126,7 +146,18 @@ void MainWindow::updateDatabaseUI()
     }
 }
 
-void MainWindow::openEditPass(Database::Entry &entry, int index)
+void MainWindow::copyClicked(std::string s)
+{
+    if( timer.isActive() )
+        timer.stop();
+    copyToClipboard(s);
+    lastClipboardItem = s;
+    std::cout << "copied \n";
+    std::cout.flush();
+    timer.start(10000);
+}
+
+void MainWindow::editClicked(Database::Entry &entry, int index)
 {
     EditPass *editpass = new EditPass(index, db);
     editpass->exec();
@@ -138,7 +169,7 @@ void MainWindow::openEditPass(Database::Entry &entry, int index)
     }
 }
 
-void MainWindow::deletePass(Database::Entry &entry)
+void MainWindow::deleteClicked(Database::Entry &entry)
 {
     QMessageBox box(QMessageBox::Icon::Warning, "Delete password", "Are you sure you want to delete this password?", QMessageBox::Yes | QMessageBox::No, this);
     if(box.exec() == QMessageBox::Yes)
@@ -169,17 +200,6 @@ void MainWindow::shrinkDatabaseCreateToolbar()
     geometryAnimation(ui->autoButton, 0, 0, 40, 40, 300);
     geometryAnimation(ui->manualButton, 0, 0, 40, 40, 300);
     createNewToggled = 0;
-}
-
-void MainWindow::copyClicked(std::string s)
-{
-    if( timer.isActive() )
-        timer.stop();
-    copyToClipboard(s);
-    lastClipboardItem = s;
-    std::cout << "copied \n";
-    std::cout.flush();
-    timer.start(10000);
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -234,9 +254,18 @@ void MainWindow::getStartedClicked()
     ui->stackedWidget->setCurrentWidget(ui->databasePage);
 }
 
-void MainWindow::plusPressed()
+void MainWindow::zapPressed()
 {
     uncheckAllButtons(ui->leftMenuContainer);
+    char_options co;
+    co.lowercase = lowerToggled;
+    co.uppercase = upperToggled;
+    co.numbers = numbersToggled;
+    co.symbols = symbolsToggled;
+    int length = atoi( ui->lengthLineEdit->text().toStdString().c_str() );
+    std::string newPass = generatePassword(length, co);
+    ui->passwordLineEdit_2->setText(QString::fromStdString(newPass));
+    ui->passwordLineEdit_2->setCursorPosition(0);         // + disabled line edit
     ui->stackedWidget->setCurrentWidget(ui->plusPage);
 }
 
@@ -296,14 +325,53 @@ void MainWindow::clipboardTimedOut()
 {
     timer.stop();
     if(checkClipboardContent(lastClipboardItem))
-    {
+    //{
         clearClipboard();
-        std::cout << "timeout \n";
-        std::cout.flush();
+    //  std::cout << "timeout \n";
+    //  std::cout.flush();
+    //}
+    //else
+    //{
+    //    std::cout << "not cleared \n";
+    //    std::cout.flush();
+    //}
+}
+
+void MainWindow::charOptionsClicked(bool &toggled, QWidget *widget)
+{
+    if(toggled)
+    {
+        toggled = 0;
+        widget->setStyleSheet(AdvancedFrameButtonDisabledStylesheet);
     }
     else
     {
-        std::cout << "not cleared \n";
-        std::cout.flush();
+        toggled = 1;
+        widget->setStyleSheet("");
     }
+}
+
+void MainWindow::fastCopyClicked()
+{
+    if( timer.isActive() )
+        timer.stop();
+    std::string s = ui->passwordLineEdit_2->text().toStdString();
+    copyToClipboard(s);
+    lastClipboardItem = s;
+    std::cout << "copied \n";
+    std::cout.flush();
+    timer.start(10000);
+}
+
+void MainWindow::generateClicked()
+{
+    char_options co;
+    co.lowercase = lowerToggled;
+    co.uppercase = upperToggled;
+    co.numbers = numbersToggled;
+    co.symbols = symbolsToggled;
+    int length = atoi( ui->lengthLineEdit->text().toStdString().c_str() );
+    std::string newPass = generatePassword(length, co);
+    ui->passwordLineEdit_2->setText(QString::fromStdString(newPass));
+    ui->passwordLineEdit_2->setCursorPosition(0);         // + disabled line edit
 }
