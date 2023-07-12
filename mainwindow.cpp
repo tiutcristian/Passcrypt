@@ -89,6 +89,7 @@ void MainWindow::initialState()
     uncheckAllButtons(ui->leftMenuContainer);
     ui->homeButton->setChecked(true);
     ui->stackedWidget->setCurrentWidget(ui->homePage);
+    //ui->progressBar->hide();
 }
 
 void MainWindow::uncheckAllButtons(QObject *widget)
