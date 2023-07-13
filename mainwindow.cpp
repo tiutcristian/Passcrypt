@@ -89,7 +89,7 @@ void MainWindow::initialState()
     uncheckAllButtons(ui->leftMenuContainer);
     ui->homeButton->setChecked(true);
     ui->stackedWidget->setCurrentWidget(ui->homePage);
-    //ui->progressBar->hide();
+    ui->progressBar->hide();
 }
 
 void MainWindow::uncheckAllButtons(QObject *widget)
@@ -166,11 +166,11 @@ void MainWindow::copyClicked(std::string s)
 {
     if( timer.isActive() )
         timer.stop();
+    ui->progressBar->setValue(100);
+    ui->progressBar->show();
     copyToClipboard(s);
     lastClipboardItem = s;
-    //std::cout << "copied \n";
-    //std::cout.flush();
-    timer.start(10000);
+    timer.start(1000);
 }
 
 void MainWindow::editClicked(Database::Entry &entry, int index)
@@ -341,17 +341,18 @@ void MainWindow::helpPressed()
 void MainWindow::clipboardTimedOut()
 {
     timer.stop();
-    if(checkClipboardContent(lastClipboardItem))
-    //{
-        clearClipboard();
-    //  std::cout << "timeout \n";
-    //  std::cout.flush();
-    //}
-    //else
-    //{
-    //    std::cout << "not cleared \n";
-    //    std::cout.flush();
-    //}
+    int val = ui->progressBar->value();
+    if(val > 10)
+    {
+        ui->progressBar->setValue(val-10);
+        timer.start(1000);
+    }
+    else
+    {
+        ui->progressBar->hide();
+        if(checkClipboardContent(lastClipboardItem))
+            clearClipboard();
+    }
 }
 
 void MainWindow::charOptionsClicked(bool &toggled, QWidget *widget)
@@ -373,11 +374,11 @@ void MainWindow::fastCopyClicked()
     if( timer.isActive() )
         timer.stop();
     std::string s = ui->passwordLineEdit_2->text().toStdString();
+    ui->progressBar->setValue(100);
+    ui->progressBar->show();
     copyToClipboard(s);
     lastClipboardItem = s;
-    //std::cout << "copied \n";
-    //std::cout.flush();
-    timer.start(10000);
+    timer.start(1000);
 }
 
 void MainWindow::generateClicked()
