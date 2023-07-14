@@ -49,10 +49,10 @@ void CreateNew::connectComponents()
     connect(ui->passwordLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->passwordLineEdit); });
     connect(ui->descriptionTextEdit, SIGNAL(textChanged()), this, SLOT(descriptionChanged()));
     connect(ui->advancedButton, SIGNAL(clicked()), this, SLOT(advancedClicked()));
-    connect(ui->upperButton, &QPushButton::clicked, [=](){ charOptionsClicked(upperToggled, ui->upperButton); });
-    connect(ui->lowerButton, &QPushButton::clicked, [=](){ charOptionsClicked(lowerToggled, ui->lowerButton); });
-    connect(ui->numbersButton, &QPushButton::clicked, [=](){ charOptionsClicked(numbersToggled, ui->numbersButton); });
-    connect(ui->symbolsButton, &QPushButton::clicked, [=](){ charOptionsClicked(symbolsToggled, ui->symbolsButton); });
+    connect(ui->upperButton, &QPushButton::clicked, [=](){ charOptionClicked(upperToggled, ui->upperButton); });
+    connect(ui->lowerButton, &QPushButton::clicked, [=](){ charOptionClicked(lowerToggled, ui->lowerButton); });
+    connect(ui->numbersButton, &QPushButton::clicked, [=](){ charOptionClicked(numbersToggled, ui->numbersButton); });
+    connect(ui->symbolsButton, &QPushButton::clicked, [=](){ charOptionClicked(symbolsToggled, ui->symbolsButton); });
     connect(ui->regenerateButton, SIGNAL(clicked()), this, SLOT(regenerateClicked()));
     connect(ui->shrinkButton, &QPushButton::clicked, [=](){ shrinkAdvancedMenu(); });
     connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveClicked()));
@@ -79,7 +79,7 @@ void CreateNew::shrinkAdvancedMenu()
     anim->start();
 }
 
-void CreateNew::charOptionsClicked(bool &toggled, QWidget *widget)
+void CreateNew::charOptionClicked(bool &toggled, QWidget *widget)
 {
     if(toggled)
     {

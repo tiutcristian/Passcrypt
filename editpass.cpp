@@ -63,9 +63,9 @@ void EditPass::descriptionChanged()
 
 void EditPass::editClicked()
 {
-    if(!editButtonClicked)
+    if(!editButtonToggled)
     {
-        editButtonClicked = true;
+        editButtonToggled = true;
         ui->editButton->setText("Hide");
         ui->editButton->setIcon(QIcon(":/icons/icons/eye-off-lightblue.svg"));
         ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
@@ -73,7 +73,7 @@ void EditPass::editClicked()
     }
     else
     {
-        editButtonClicked = false;
+        editButtonToggled = false;
         ui->editButton->setText("Edit");
         ui->editButton->setIcon(QIcon(":/icons/icons/edit-2 (1).svg"));
         ui->passwordLineEdit->setEchoMode(QLineEdit::Password);

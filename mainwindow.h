@@ -7,6 +7,7 @@
 #include "editpass.h"
 #include <QMainWindow>
 #include <QTimer>
+#include <QPropertyAnimation>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -61,7 +62,7 @@ public:
     loginDialog ld;
     signupDialog sd;
 
-    //general mathods
+    //general methods
     void setDatabase(Database* db);
 
 public slots:
