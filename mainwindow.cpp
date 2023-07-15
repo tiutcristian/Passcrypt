@@ -9,6 +9,7 @@
 #include "constants.h"
 
 #include <fstream>
+#include <cstdlib>
 #include <QStyle>
 #include <QPropertyAnimation>
 #include <QLineEdit>
@@ -84,6 +85,7 @@ void MainWindow::initialState()
     ui->homeButton->setChecked(true);
     ui->stackedWidget->setCurrentWidget(ui->homePage);
     ui->progressBar->hide();
+    ui->progressBarLabel->hide();
 }
 
 void MainWindow::uncheckAllButtons(QObject *widget)
@@ -110,6 +112,7 @@ void MainWindow::updateDatabaseUI()
 
         // create new horizontal layout
         auto passhlay = new QHBoxLayout;
+        passhlay->setSpacing(10);
 
         // title label
         auto titlelbl = new QLabel(QString::fromStdString(crt.title));
@@ -131,23 +134,29 @@ void MainWindow::updateDatabaseUI()
         passhlay->addWidget(copyButton);
         copyButton->setCursor(Qt::PointingHandCursor);
         copyButton->setMinimumHeight(25);
-        copyButton->setMaximumWidth(60);
+        copyButton->setMaximumHeight(25);
+        copyButton->setMinimumWidth(65);
+        copyButton->setMaximumWidth(65);
         connect(copyButton, &QPushButton::clicked, [&crt, this](){ copyClicked(crt.pass); });
 
         // edit button
-        auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " edit");
+        auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " Edit");
         passhlay->addWidget(editButton);
         editButton->setCursor(Qt::PointingHandCursor);
         editButton->setMinimumHeight(25);
-        editButton->setMaximumWidth(60);
+        editButton->setMaximumHeight(25);
+        editButton->setMinimumWidth(65);
+        editButton->setMaximumWidth(65);
         connect(editButton, &QPushButton::clicked, [&crt, this, index](){ editClicked(crt, index); });
 
         // delete button
-        auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " delete");
+        auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " Delete");
         passhlay->addWidget(deleteButton);
         deleteButton->setCursor(Qt::PointingHandCursor);
         deleteButton->setMinimumHeight(25);
-        deleteButton->setMaximumWidth(60);
+        deleteButton->setMaximumHeight(25);
+        deleteButton->setMinimumWidth(65);
+        deleteButton->setMaximumWidth(65);
         connect(deleteButton, &QPushButton::clicked, [&crt, this](){ deleteClicked(crt); });
 
         // create widget
@@ -190,7 +199,9 @@ void MainWindow::copyClicked(std::string s)
     if( timer.isActive() )
         timer.stop();
     ui->progressBar->setValue(100);
+    ui->progressBarLabel->setText("10 seconds");
     ui->progressBar->show();
+    ui->progressBarLabel->show();
     copyToClipboard(s);
     lastClipboardItem = s;
     timer.start(1000);
@@ -312,7 +323,7 @@ void MainWindow::zapPressed()
     ui->passwordLineEdit_2->setCursorPosition(0);
 
     // switch to fast generate page
-    ui->stackedWidget->setCurrentWidget(ui->plusPage);
+    ui->stackedWidget->setCurrentWidget(ui->fastGeneratePage);
 }
 
 void MainWindow::databasePressed()
@@ -374,11 +385,15 @@ void MainWindow::clipboardTimedOut()
     if(val > 10)
     {
         ui->progressBar->setValue(val-10);
+        int nrOfSeconds = (val-10)/10;
+        string str_nrOfSeconds = std::to_string(nrOfSeconds);
+        ui->progressBarLabel->setText( QString::fromStdString( str_nrOfSeconds + " seconds" ) );
         timer.start(1000);
     }
     else
     {
         ui->progressBar->hide();
+        ui->progressBarLabel->hide();
         if(checkClipboardContent(lastClipboardItem))
             clearClipboard();
     }
@@ -404,7 +419,9 @@ void MainWindow::fastCopyClicked()
         timer.stop();
     std::string s = ui->passwordLineEdit_2->text().toStdString();
     ui->progressBar->setValue(100);
+    ui->progressBarLabel->setText("10 seconds");
     ui->progressBar->show();
+    ui->progressBarLabel->show();
     copyToClipboard(s);
     lastClipboardItem = s;
     timer.start(1000);

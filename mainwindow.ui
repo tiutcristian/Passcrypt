@@ -57,6 +57,14 @@
 
 #leftMenuContainer QPushButton:pressed{
 	background-color: rgb(5, 16, 32);
+}
+
+#progressBar{
+	background-color: rgb(57, 73, 94);
+}
+
+#progressBarLabel{
+	font: 12pt &quot;Segoe UI&quot;;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -357,7 +365,7 @@
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="homePage">
           <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -674,7 +682,7 @@ QPushButton:pressed{
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="plusPage">
+         <widget class="QWidget" name="fastGeneratePage">
           <layout class="QVBoxLayout" name="verticalLayout_12">
            <item alignment="Qt::AlignTop">
             <widget class="QWidget" name="fastGenerateTopWidget" native="true">
@@ -1742,8 +1750,8 @@ QPushButton:pressed{
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>52</width>
-                      <height>18</height>
+                      <width>700</width>
+                      <height>424</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -1789,6 +1797,10 @@ QPushButton:pressed{
 #passwordsSubcontainer QLineEdit{
 	color: rgb(153, 234, 255);
 	/*qproperty-alignment: AlignCenter;*/
+}
+
+#passwordsSubcontainer QPushButton{
+	/*font: 8pt &quot;Segoe UI&quot;;*/
 }</string>
                        </property>
                        <layout class="QVBoxLayout" name="passLayout">
@@ -2006,13 +2018,20 @@ color: rgb(52, 105, 157);</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(57, 73, 94);</string>
+             <string notr="true"/>
             </property>
             <property name="value">
              <number>24</number>
             </property>
             <property name="textVisible">
              <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="progressBarLabel">
+            <property name="text">
+             <string>10s</string>
             </property>
            </widget>
           </item>
