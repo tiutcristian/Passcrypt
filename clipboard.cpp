@@ -17,7 +17,7 @@ void copyToClipboard(std::string s)
     }
 
     UINT clipboardHistoryFormat_ = RegisterClipboardFormat(L"CanIncludeInClipboardHistory");
-    UINT cloudClipboardFormat_ = RegisterClipboardFormat(L"CanUploadToCloudClipboard");
+    //UINT cloudClipboardFormat_ = RegisterClipboardFormat(L"CanUploadToCloudClipboard");
 
     auto number_of_bytes = sizeof(DWORD);
     auto hMem = GlobalAlloc(GMEM_MOVEABLE | GMEM_ZEROINIT, number_of_bytes);

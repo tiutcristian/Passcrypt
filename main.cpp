@@ -20,9 +20,8 @@ void setPalette(QApplication &a)
 
 int main(int argc, char *argv[])
 {
-    MainWindow mainw;
-
     QApplication a(argc, argv);
     setPalette(a);
+    MainWindow mainw;
     return a.exec();
 }
