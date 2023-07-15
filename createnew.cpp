@@ -44,10 +44,13 @@ void CreateNew::initialState(const bool &autoGenerate)
 
 void CreateNew::connectComponents()
 {
+    // text changed
     connect(ui->titleLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->titleLineEdit); });
     connect(ui->idLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->idLineEdit); });
     connect(ui->passwordLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->passwordLineEdit); });
     connect(ui->descriptionTextEdit, SIGNAL(textChanged()), this, SLOT(descriptionChanged()));
+
+    // button clicked
     connect(ui->advancedButton, SIGNAL(clicked()), this, SLOT(advancedClicked()));
     connect(ui->upperButton, &QPushButton::clicked, [=](){ charOptionClicked(upperToggled, ui->upperButton); });
     connect(ui->lowerButton, &QPushButton::clicked, [=](){ charOptionClicked(lowerToggled, ui->lowerButton); });

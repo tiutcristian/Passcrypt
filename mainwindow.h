@@ -40,7 +40,7 @@ private:
     void buttonStyle();
     void initialState();
     void uncheckAllButtons(QObject* widget);
-    void geometryAnimation(QWidget* target, const int &x, const int &y, const int &w, const int &h, const int &d);
+    void geometryAnimation(QWidget* target, const int &x, const int &y, const int &w, const int &h, const int &duration);
 
     //fast generate page methods
     void charOptionsClicked(bool &toggled, QWidget *widget);

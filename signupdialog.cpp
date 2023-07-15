@@ -24,16 +24,17 @@ signupDialog::~signupDialog()
 
 void signupDialog::buttonStyle()
 {
-    auto cursor = new QCursor;
-    cursor->setShape(Qt::PointingHandCursor);
-    ui->confirmButton->setCursor(*cursor);
+    ui->confirmButton->setCursor(Qt::PointingHandCursor);
 }
 
 void signupDialog::connectComponents()
 {
-    connect(ui->confirmButton, SIGNAL( clicked() ), this, SLOT( confirmClicked() ) );
+    // text changed
     connect(ui->enterLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->enterLineEdit); ui->notMatchLabel->hide(); });
     connect(ui->reenterLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->reenterLineEdit); ui->notMatchLabel->hide(); });
+
+    // button clicked
+    connect(ui->confirmButton, SIGNAL( clicked() ), this, SLOT( confirmClicked() ) );
 }
 
 void signupDialog::confirmClicked()

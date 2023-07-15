@@ -6,8 +6,8 @@
 
 EditPass::EditPass(int index, Database *db) :
     ui(new Ui::EditPass),
-    index(index),
     entry(db->entries[index]),
+    index(index),
     db(db)
 {
     ui->setupUi(this);
@@ -23,18 +23,19 @@ EditPass::~EditPass()
 
 void EditPass::buttonStyle()
 {
-    auto cursor = new QCursor;
-    cursor->setShape(Qt::PointingHandCursor);
-    ui->editButton->setCursor(*cursor);
-    ui->saveButton->setCursor(*cursor);
-    ui->cancelButton->setCursor(*cursor);
+    ui->editButton->setCursor(Qt::PointingHandCursor);
+    ui->saveButton->setCursor(Qt::PointingHandCursor);
+    ui->cancelButton->setCursor(Qt::PointingHandCursor);
 }
 
 void EditPass::connectComponents()
 {
+    // text changed
     connect(ui->titleLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->titleLineEdit); });
     connect(ui->idLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->idLineEdit); });
     connect(ui->descriptionTextEdit, SIGNAL(textChanged()), this, SLOT(descriptionChanged()));
+
+    // button clicked
     connect(ui->editButton, SIGNAL(clicked()), this, SLOT(editClicked()));
     connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveClicked()));
     connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(cancelClicked()));
@@ -42,13 +43,22 @@ void EditPass::connectComponents()
 
 void EditPass::initialState()
 {
+    // initialize title line edit
     ui->titleLineEdit->setText(QString::fromStdString(entry.title));
     ui->titleLineEdit->setCursorPosition(0);
+
+    // initialize id line edit
     ui->idLineEdit->setText(QString::fromStdString(entry.username));
     ui->idLineEdit->setCursorPosition(0);
+
+    // initialize description line edit
     ui->descriptionTextEdit->setText(QString::fromStdString(entry.description));
+
+    // initialize password line edit
     ui->passwordLineEdit->setText(QString::fromStdString(entry.pass));
     ui->passwordLineEdit->setCursorPosition(0);
+
+    // general initializations
     setFocus(Qt::NoFocusReason);
 }
 

@@ -23,14 +23,15 @@ loginDialog::~loginDialog()
 
 void loginDialog::buttonStyle()
 {
-    auto cursor = new QCursor;
-    cursor->setShape(Qt::PointingHandCursor);
-    ui->confirmButton->setCursor(*cursor);
+    ui->confirmButton->setCursor(Qt::PointingHandCursor);
 }
 
 void loginDialog::connectComponents()
 {
+    // text changed
     connect( ui->lineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->lineEdit); ui->wrongLabel->hide(); });
+
+    // button clicked
     connect( ui->confirmButton, SIGNAL( clicked() ), this, SLOT( confirmClicked() ) );
 }
 

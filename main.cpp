@@ -1,11 +1,9 @@
 #include "mainwindow.h"
-#include <QApplication>
-#include <QString>
 #include "encrypt.h"
-#include <iostream>
+#include "sodium.h"
+#include <QApplication>
 #include <QPalette>
 #include <QStyleFactory>
-#include "sodium.h"
 
 void setPalette(QApplication &a)
 {
@@ -22,9 +20,9 @@ void setPalette(QApplication &a)
 
 int main(int argc, char *argv[])
 {
+    MainWindow mainw;
+
     QApplication a(argc, argv);
     setPalette(a);
-    MainWindow mainw;
     return a.exec();
-    //return 0;
 }

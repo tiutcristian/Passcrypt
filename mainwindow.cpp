@@ -9,7 +9,6 @@
 #include "constants.h"
 
 #include <fstream>
-//#include <iostream>
 #include <QStyle>
 #include <QPropertyAnimation>
 #include <QLineEdit>
@@ -50,38 +49,33 @@ void MainWindow::connectComponents()
     connect(ui->autoButton, SIGNAL(clicked()), this, SLOT(autoClicked()));
     connect(ui->manualButton, SIGNAL(clicked()), this, SLOT(manualClicked()));
 
-    //other
+    // timer
     connect(&timer, SIGNAL(timeout()), this, SLOT(clipboardTimedOut()));
 }
 
 void MainWindow::buttonStyle()
 {
-    std::vector<QPushButton*> v;
-
     // left menu buttons
-    v.push_back(ui->homeButton);
-    v.push_back(ui->plusButton);
-    v.push_back(ui->databaseButton);
-    v.push_back(ui->helpButton);
+    ui->homeButton->setCursor(Qt::PointingHandCursor);
+    ui->plusButton->setCursor(Qt::PointingHandCursor);
+    ui->databaseButton->setCursor(Qt::PointingHandCursor);
+    ui->helpButton->setCursor(Qt::PointingHandCursor);
 
     // home page buttons
-    v.push_back(ui->getStartedButton);
+    ui->getStartedButton->setCursor(Qt::PointingHandCursor);
 
     // fast generate page buttons
-    v.push_back(ui->copyButton);
-    v.push_back(ui->upperButton);
-    v.push_back(ui->lowerButton);
-    v.push_back(ui->numbersButton);
-    v.push_back(ui->symbolsButton);
-    v.push_back(ui->generateButton);
+    ui->copyButton->setCursor(Qt::PointingHandCursor);
+    ui->upperButton->setCursor(Qt::PointingHandCursor);
+    ui->lowerButton->setCursor(Qt::PointingHandCursor);
+    ui->numbersButton->setCursor(Qt::PointingHandCursor);
+    ui->symbolsButton->setCursor(Qt::PointingHandCursor);
+    ui->generateButton->setCursor(Qt::PointingHandCursor);
 
     // database page buttons
-    v.push_back(ui->newButton);
-    v.push_back(ui->autoButton);
-    v.push_back(ui->manualButton);
-
-    for(auto crt : v)
-        crt->setCursor(Qt::PointingHandCursor);
+    ui->newButton->setCursor(Qt::PointingHandCursor);
+    ui->autoButton->setCursor(Qt::PointingHandCursor);
+    ui->manualButton->setCursor(Qt::PointingHandCursor);
 }
 
 void MainWindow::initialState()
@@ -111,21 +105,28 @@ void MainWindow::updateDatabaseUI()
     bool isEmpty = true;
     for(int index = 0; index < (int)db->entries.size(); index++)
     {
+        // copy current entry to crt
         auto &crt = db->entries[index];
-        isEmpty = false;
+
+        // create new horizontal layout
         auto passhlay = new QHBoxLayout;
+
+        // title label
         auto titlelbl = new QLabel(QString::fromStdString(crt.title));
         passhlay->addWidget(titlelbl);
         titlelbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 
+        // id label
         auto idlbl = new QLabel(QString::fromStdString(crt.username));
         passhlay->addWidget(idlbl);
         idlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 
+        // description label
         auto descriptionlbl = new QLabel(QString::fromStdString(crt.description));
         passhlay->addWidget(descriptionlbl);
         descriptionlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 
+        // copy button
         auto copyButton = new QPushButton(QIcon(":/icons/icons/copy-lightblue.svg"), " Copy");
         passhlay->addWidget(copyButton);
         copyButton->setCursor(Qt::PointingHandCursor);
@@ -133,6 +134,7 @@ void MainWindow::updateDatabaseUI()
         copyButton->setMaximumWidth(60);
         connect(copyButton, &QPushButton::clicked, [&crt, this](){ copyClicked(crt.pass); });
 
+        // edit button
         auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " edit");
         passhlay->addWidget(editButton);
         editButton->setCursor(Qt::PointingHandCursor);
@@ -140,6 +142,7 @@ void MainWindow::updateDatabaseUI()
         editButton->setMaximumWidth(60);
         connect(editButton, &QPushButton::clicked, [&crt, this, index](){ editClicked(crt, index); });
 
+        // delete button
         auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " delete");
         passhlay->addWidget(deleteButton);
         deleteButton->setCursor(Qt::PointingHandCursor);
@@ -147,17 +150,37 @@ void MainWindow::updateDatabaseUI()
         deleteButton->setMaximumWidth(60);
         connect(deleteButton, &QPushButton::clicked, [&crt, this](){ deleteClicked(crt); });
 
+        // create widget
         auto passwid = new QWidget;
         passwid->setLayout(passhlay);
+
+        // add widget to passLayout
         ui->passLayout->addWidget(passwid);
 
+        // mark that passLayout is not empty and set default stylesheet
+        isEmpty = false;
         ui->passwordsSubcontainer->setStyleSheet(PasswordsSubContainerStylesheet);
     }
+
+    // if there is no password in the database
     if(isEmpty)
     {
+        // set respective stylesheet
         ui->passwordsSubcontainer->setStyleSheet("background: transparent;");
-        auto emptyhlay = new QHBoxLayout; emptyhlay->addStretch(); auto emptylbl = new QLabel("No saved passwords"); emptylbl->setStyleSheet("font: 12pt \"Segoe UI\"; color: #34699D;"); emptyhlay->addWidget(emptylbl); emptyhlay->addStretch();
-        auto emptywid = new QWidget; emptywid->setLayout(emptyhlay);
+
+        // create new horizaontal layout
+        auto emptyhlay = new QHBoxLayout;
+        emptyhlay->addStretch();
+        auto emptylbl = new QLabel("No saved passwords");
+        emptylbl->setStyleSheet("font: 12pt \"Segoe UI\"; color: #34699D;");
+        emptyhlay->addWidget(emptylbl);
+        emptyhlay->addStretch();
+
+        // create widget
+        auto emptywid = new QWidget;
+        emptywid->setLayout(emptyhlay);
+
+        // add widget to passLayout
         ui->passLayout->addWidget(emptywid);
     }
 }
@@ -195,10 +218,10 @@ void MainWindow::deleteClicked(Database::Entry &entry)
     }
 }
 
-void MainWindow::geometryAnimation(QWidget *target, const int &x, const int &y, const int &w, const int &h, const int &d)
+void MainWindow::geometryAnimation(QWidget *target, const int &x, const int &y, const int &w, const int &h, const int &duration)
 {
     auto anim = new QPropertyAnimation(target, "geometry");
-    anim->setDuration(d);
+    anim->setDuration(duration);
     anim->setStartValue(target->geometry());
     anim->setEndValue(QRect(x, y, w, h));
     anim->start();
@@ -273,6 +296,8 @@ void MainWindow::getStartedClicked()
 void MainWindow::zapPressed()
 {
     uncheckAllButtons(ui->leftMenuContainer);
+
+    // create new password based on char options and length
     char_options co;
     co.lowercase = lowerToggled;
     co.uppercase = upperToggled;
@@ -280,9 +305,13 @@ void MainWindow::zapPressed()
     co.symbols = symbolsToggled;
     int length = atoi( ui->lengthLineEdit->text().toStdString().c_str() );
     std::string newPass = generatePassword(length, co);
+
+    // print password on the QLineEdit
     ui->passwordLineEdit_2->setText(QString::fromStdString(newPass));
     ui->passwordLineEdit_2->setDisabled(1);
     ui->passwordLineEdit_2->setCursorPosition(0);
+
+    // switch to fast generate page
     ui->stackedWidget->setCurrentWidget(ui->plusPage);
 }
 
@@ -383,6 +412,7 @@ void MainWindow::fastCopyClicked()
 
 void MainWindow::generateClicked()
 {
+    // create new password based on char options and length
     char_options co;
     co.lowercase = lowerToggled;
     co.uppercase = upperToggled;
@@ -390,6 +420,8 @@ void MainWindow::generateClicked()
     co.symbols = symbolsToggled;
     int length = atoi( ui->lengthLineEdit->text().toStdString().c_str() );
     std::string newPass = generatePassword(length, co);
+
+    // print password on the QLineEdit
     ui->passwordLineEdit_2->setText(QString::fromStdString(newPass));
     ui->passwordLineEdit_2->setDisabled(1);
     ui->passwordLineEdit_2->setCursorPosition(0);
