@@ -2,6 +2,7 @@
 #define EDITPASS_H
 
 #include <QDialog>
+#include <QTimer>
 #include "database.h"
 
 namespace Ui {
@@ -30,6 +31,7 @@ private:
     int index;
     Database *db;
     bool save;
+    QTimer timer;
 
     // toggle buttons
     bool editButtonToggled = 0;
@@ -43,11 +45,15 @@ private slots:
 
     // text changed slots
     void descriptionChanged();
+    void passwordChanged();
 
     // button-clicked slots
     void editClicked();
     void saveClicked();
     void cancelClicked();
+
+    // timer slot
+    void editTimedOut();
 };
 
 #endif // EDITPASS_H

@@ -33,12 +33,16 @@ void EditPass::connectComponents()
     // text changed
     connect(ui->titleLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->titleLineEdit); });
     connect(ui->idLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->idLineEdit); });
+    connect(ui->passwordLineEdit, &QLineEdit::textChanged, [=]{ passwordChanged(); });
     connect(ui->descriptionTextEdit, SIGNAL(textChanged()), this, SLOT(descriptionChanged()));
 
     // button clicked
     connect(ui->editButton, SIGNAL(clicked()), this, SLOT(editClicked()));
     connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveClicked()));
     connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(cancelClicked()));
+
+    // timer timeout
+    connect(&timer, SIGNAL(timeout()), this, SLOT(editTimedOut()));
 }
 
 void EditPass::initialState()
@@ -62,6 +66,13 @@ void EditPass::initialState()
     setFocus(Qt::NoFocusReason);
 }
 
+void EditPass::passwordChanged()
+{
+    if(timer.isActive())
+        timer.stop();
+    timer.start(5000);
+}
+
 void EditPass::descriptionChanged()
 {
     QString text = ui->descriptionTextEdit->toPlainText();
@@ -80,6 +91,9 @@ void EditPass::editClicked()
         ui->editButton->setIcon(QIcon(":/icons/icons/eye-off-lightblue.svg"));
         ui->passwordLineEdit->setEchoMode(QLineEdit::Normal);
         ui->passwordLineEdit->setEnabled(true);
+        if(timer.isActive())
+            timer.stop();
+        timer.start(5000);
     }
     else
     {
@@ -117,4 +131,13 @@ void EditPass::saveClicked()
 void EditPass::cancelClicked()
 {
     EditPass::close();
+}
+
+void EditPass::editTimedOut()
+{
+    editButtonToggled = false;
+    ui->editButton->setText("Edit");
+    ui->editButton->setIcon(QIcon(":/icons/icons/edit-2 (1).svg"));
+    ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
+    ui->passwordLineEdit->setDisabled(true);
 }
