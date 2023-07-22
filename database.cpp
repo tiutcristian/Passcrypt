@@ -63,6 +63,11 @@ void Database::read()
     }
 }
 
+void Database::updateMasterPassword(const std::string &newMasterPassword)
+{
+    this->masterPassword = newMasterPassword;
+}
+
 void Database::save()
 {
     std::stringstream fout;

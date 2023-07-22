@@ -31,7 +31,8 @@ void MainWindow::connectComponents()
     // left menu buttons
     connect(ui->homeButton, SIGNAL(pressed()), this, SLOT(homePressed()));
     connect(ui->plusButton, SIGNAL(pressed()), this, SLOT(zapPressed()));
-    connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));
+    connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));    
+    connect(ui->settingsButton, SIGNAL(pressed()), this, SLOT(settingsPressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
 
     // home page buttons
@@ -50,22 +51,31 @@ void MainWindow::connectComponents()
     connect(ui->autoButton, SIGNAL(clicked()), this, SLOT(autoClicked()));
     connect(ui->manualButton, SIGNAL(clicked()), this, SLOT(manualClicked()));
 
+    // settings page text changed
+    connect(ui->changePasswordCurrentPasswordLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->changePasswordCurrentPasswordLineEdit); hideMessageLabels(); });
+    connect(ui->changePasswordNewPasswordLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->changePasswordNewPasswordLineEdit); hideMessageLabels(); });
+    connect(ui->changePasswordReNewPasswordLineEdit, &QLineEdit::textChanged, [=]{ style()->polish(ui->changePasswordReNewPasswordLineEdit); hideMessageLabels(); });
+
+    // settings page buttons
+    connect(ui->changePasswordButton, SIGNAL(clicked()), this, SLOT(changePasswordClicked()));
+
     // timer
     connect(&timer, SIGNAL(timeout()), this, SLOT(clipboardTimedOut()));
 }
 
 void MainWindow::buttonStyle()
 {
-    // left menu buttons
+    // left menu
     ui->homeButton->setCursor(Qt::PointingHandCursor);
     ui->plusButton->setCursor(Qt::PointingHandCursor);
     ui->databaseButton->setCursor(Qt::PointingHandCursor);
+    ui->settingsButton->setCursor(Qt::PointingHandCursor);
     ui->helpButton->setCursor(Qt::PointingHandCursor);
 
-    // home page buttons
+    // home page
     ui->getStartedButton->setCursor(Qt::PointingHandCursor);
 
-    // fast generate page buttons
+    // fast generate page
     ui->copyButton->setCursor(Qt::PointingHandCursor);
     ui->upperButton->setCursor(Qt::PointingHandCursor);
     ui->lowerButton->setCursor(Qt::PointingHandCursor);
@@ -73,19 +83,26 @@ void MainWindow::buttonStyle()
     ui->symbolsButton->setCursor(Qt::PointingHandCursor);
     ui->generateButton->setCursor(Qt::PointingHandCursor);
 
-    // database page buttons
+    // database page
     ui->newButton->setCursor(Qt::PointingHandCursor);
     ui->autoButton->setCursor(Qt::PointingHandCursor);
     ui->manualButton->setCursor(Qt::PointingHandCursor);
+
+    // setting page
+    ui->changePasswordButton->setCursor(Qt::PointingHandCursor);
 }
 
 void MainWindow::initialState()
 {
+    // general
     uncheckAllButtons(ui->leftMenuContainer);
     ui->homeButton->setChecked(true);
     ui->stackedWidget->setCurrentWidget(ui->homePage);
     ui->progressBar->hide();
     ui->progressBarLabel->hide();
+
+    // settings page
+    hideMessageLabels();
 }
 
 void MainWindow::uncheckAllButtons(QObject *widget)
@@ -229,6 +246,13 @@ void MainWindow::deleteClicked(Database::Entry &entry)
     }
 }
 
+void MainWindow::hideMessageLabels()
+{
+    ui->changePasswordUpdatedLabel->hide();
+    ui->changePasswordWrongCurrentLabel->hide();
+    ui->changePasswordNotMatchLabel->hide();
+}
+
 void MainWindow::geometryAnimation(QWidget *target, const int &x, const int &y, const int &w, const int &h, const int &duration)
 {
     auto anim = new QPropertyAnimation(target, "geometry");
@@ -369,6 +393,33 @@ void MainWindow::manualClicked()
         auto password = gen.getPassword();
         db->add(Database::Entry(title, id, description, password));
         updateDatabaseUI();
+    }
+}
+
+void MainWindow::settingsPressed()
+{
+    uncheckAllButtons(ui->leftMenuContainer);
+    ui->stackedWidget->setCurrentWidget(ui->settingsPage);
+}
+
+void MainWindow::changePasswordClicked()
+{
+    hideMessageLabels();
+    if(ui->changePasswordNewPasswordLineEdit->text() != ui->changePasswordReNewPasswordLineEdit->text())
+        ui->changePasswordNotMatchLabel->show();
+    else
+    {
+        try
+        {
+            auto verify = decrypt("database.txt", ui->changePasswordCurrentPasswordLineEdit->text().toStdString());
+            db->updateMasterPassword(ui->changePasswordNewPasswordLineEdit->text().toStdString());
+            db->save();
+            ui->changePasswordUpdatedLabel->show();
+        }
+        catch (decryptionError)
+        {
+            ui->changePasswordWrongCurrentLabel->show();
+        }
     }
 }
 

@@ -189,7 +189,7 @@ string decrypt(const string &fileName, const string &master)
     getKeyFromPass(master, key);
     if (crypto_secretstream_xchacha20poly1305_init_pull(&st, header, key) != 0) {
         fclose(fp_s);
-        throw "decryption error"; /* incomplete header */
+        throw decryptionError(); /* incomplete header */
     }
 
     do {
@@ -198,11 +198,11 @@ string decrypt(const string &fileName, const string &master)
         if (crypto_secretstream_xchacha20poly1305_pull(&st, buf_out, &out_len, &tag,
                                                        buf_in, rlen, NULL, 0) != 0) {
             fclose(fp_s);
-            throw "decryption error"; /* corrupted chunk */
+            throw decryptionError(); /* corrupted chunk */
         }
         if (tag == crypto_secretstream_xchacha20poly1305_TAG_FINAL && ! eof) {
             fclose(fp_s);
-            throw "decryption error"; /* premature end (end of file reached before the end of the stream) */
+            throw decryptionError(); /* premature end (end of file reached before the end of the stream) */
         }
         output.write((char*)buf_out, out_len);
     } while (! eof);

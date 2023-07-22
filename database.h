@@ -28,6 +28,10 @@ public:
     void add(const Entry &entry);
     void remove(const Entry &entry);
     void save();
+    void read();
+
+    // general methods
+    void updateMasterPassword(const std::string &newMasterPassword);
 
     // functions
     bool availableTitle(std::string title, std::vector<Database::Entry> entries, int indexToSkip);
@@ -42,7 +46,6 @@ private:
 
     // database methods
     void sortEntries();
-    void read();
 
 };
 

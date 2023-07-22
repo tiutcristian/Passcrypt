@@ -54,6 +54,9 @@ private:
     void editClicked(Database::Entry &entry, int index);
     void deleteClicked(Database::Entry &entry);
 
+    // settings page methods
+    void hideMessageLabels();
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -84,6 +87,10 @@ public slots:
     void createNewClicked();
     void autoClicked();
     void manualClicked();
+
+    // settings page
+    void settingsPressed();
+    void changePasswordClicked();
 
     // help page
     void helpPressed();
