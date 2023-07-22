@@ -13,7 +13,7 @@ const char* PasswordsSubContainerStylesheet =
     "}"
     ""
     "#passwordsSubcontainer QPushButton{"
-    "    border-radius: 12px;"
+    "    border-radius: 15px;"
     "    background-color: rgb(57, 73, 94);"
     "}"
     ""

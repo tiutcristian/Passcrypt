@@ -138,33 +138,33 @@ void MainWindow::updateDatabaseUI()
         descriptionlbl->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 
         // copy button
-        auto copyButton = new QPushButton(QIcon(":/icons/icons/copy-lightblue.svg"), " Copy");
+        auto copyButton = new QPushButton(QIcon(":/icons/icons/copy-lightblue.svg"), "");
         passhlay->addWidget(copyButton);
         copyButton->setCursor(Qt::PointingHandCursor);
-        copyButton->setMinimumHeight(25);
-        copyButton->setMaximumHeight(25);
-        copyButton->setMinimumWidth(65);
-        copyButton->setMaximumWidth(65);
+        copyButton->setMinimumHeight(30);
+        copyButton->setMaximumHeight(30);
+        copyButton->setMinimumWidth(30);
+        copyButton->setMaximumWidth(30);
         connect(copyButton, &QPushButton::clicked, [&crt, this](){ copyClicked(crt.pass); });
 
         // edit button
-        auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), " Edit");
+        auto editButton = new QPushButton(QIcon(":/icons/icons/edit-2 (1).svg"), "");
         passhlay->addWidget(editButton);
         editButton->setCursor(Qt::PointingHandCursor);
-        editButton->setMinimumHeight(25);
-        editButton->setMaximumHeight(25);
-        editButton->setMinimumWidth(65);
-        editButton->setMaximumWidth(65);
+        editButton->setMinimumHeight(30);
+        editButton->setMaximumHeight(30);
+        editButton->setMinimumWidth(30);
+        editButton->setMaximumWidth(30);
         connect(editButton, &QPushButton::clicked, [&crt, this, index](){ editClicked(crt, index); });
 
         // delete button
-        auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), " Delete");
+        auto deleteButton = new QPushButton(QIcon(":/icons/icons/trash-2-lightblue.svg"), "");
         passhlay->addWidget(deleteButton);
         deleteButton->setCursor(Qt::PointingHandCursor);
-        deleteButton->setMinimumHeight(25);
-        deleteButton->setMaximumHeight(25);
-        deleteButton->setMinimumWidth(65);
-        deleteButton->setMaximumWidth(65);
+        deleteButton->setMinimumHeight(30);
+        deleteButton->setMaximumHeight(30);
+        deleteButton->setMinimumWidth(30);
+        deleteButton->setMaximumWidth(30);
         connect(deleteButton, &QPushButton::clicked, [&crt, this](){ deleteClicked(crt); });
 
         // create widget
