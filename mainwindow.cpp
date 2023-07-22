@@ -29,14 +29,10 @@ void MainWindow::initialDialog()
 void MainWindow::connectComponents()
 {
     // left menu buttons
-    connect(ui->homeButton, SIGNAL(pressed()), this, SLOT(homePressed()));
     connect(ui->plusButton, SIGNAL(pressed()), this, SLOT(zapPressed()));
     connect(ui->databaseButton, SIGNAL(pressed()), this, SLOT(databasePressed()));    
     connect(ui->settingsButton, SIGNAL(pressed()), this, SLOT(settingsPressed()));
     connect(ui->helpButton, SIGNAL(pressed()), this, SLOT(helpPressed()));
-
-    // home page buttons
-    connect(ui->getStartedButton, SIGNAL(clicked()), this, SLOT(getStartedClicked()));
 
     // fast generate page buttons
     connect(ui->copyButton, SIGNAL(clicked()), this, SLOT(fastCopyClicked()));
@@ -66,14 +62,10 @@ void MainWindow::connectComponents()
 void MainWindow::buttonStyle()
 {
     // left menu
-    ui->homeButton->setCursor(Qt::PointingHandCursor);
     ui->plusButton->setCursor(Qt::PointingHandCursor);
     ui->databaseButton->setCursor(Qt::PointingHandCursor);
     ui->settingsButton->setCursor(Qt::PointingHandCursor);
     ui->helpButton->setCursor(Qt::PointingHandCursor);
-
-    // home page
-    ui->getStartedButton->setCursor(Qt::PointingHandCursor);
 
     // fast generate page
     ui->copyButton->setCursor(Qt::PointingHandCursor);
@@ -96,7 +88,6 @@ void MainWindow::initialState()
 {
     // general
     uncheckAllButtons(ui->leftMenuContainer);
-    ui->homeButton->setChecked(true);
     ui->stackedWidget->setCurrentWidget(ui->homePage);
     ui->progressBar->hide();
     ui->progressBarLabel->hide();
