@@ -39,7 +39,10 @@ void CreateNew::initialState(const bool &autoGenerate)
         ui->passwordLineEdit->setDisabled(1);
     }
     else
+    {
         ui->passwordLineEdit->setPlaceholderText("Enter password...");
+        ui->advancedButton->hide();
+    }
 }
 
 void CreateNew::connectComponents()
