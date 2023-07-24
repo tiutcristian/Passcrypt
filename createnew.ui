@@ -1499,19 +1499,19 @@ padding-right: 4px;</string>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>saveButton</tabstop>
-  <tabstop>cancelButton</tabstop>
   <tabstop>titleLineEdit</tabstop>
   <tabstop>idLineEdit</tabstop>
-  <tabstop>advancedButton</tabstop>
-  <tabstop>descriptionTextEdit</tabstop>
   <tabstop>passwordLineEdit</tabstop>
+  <tabstop>descriptionTextEdit</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+  <tabstop>advancedButton</tabstop>
   <tabstop>lengthLineEdit</tabstop>
   <tabstop>upperButton</tabstop>
-  <tabstop>lowerButton</tabstop>
   <tabstop>numbersButton</tabstop>
-  <tabstop>symbolsButton</tabstop>
   <tabstop>regenerateButton</tabstop>
+  <tabstop>symbolsButton</tabstop>
+  <tabstop>lowerButton</tabstop>
   <tabstop>shrinkButton</tabstop>
  </tabstops>
  <resources>
