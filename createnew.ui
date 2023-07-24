@@ -1498,6 +1498,22 @@ padding-right: 4px;</string>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>saveButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+  <tabstop>titleLineEdit</tabstop>
+  <tabstop>idLineEdit</tabstop>
+  <tabstop>advancedButton</tabstop>
+  <tabstop>descriptionTextEdit</tabstop>
+  <tabstop>passwordLineEdit</tabstop>
+  <tabstop>lengthLineEdit</tabstop>
+  <tabstop>upperButton</tabstop>
+  <tabstop>lowerButton</tabstop>
+  <tabstop>numbersButton</tabstop>
+  <tabstop>symbolsButton</tabstop>
+  <tabstop>regenerateButton</tabstop>
+  <tabstop>shrinkButton</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>
