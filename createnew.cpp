@@ -6,7 +6,6 @@
 #include <QClipboard>
 #include <QString>
 #include <QStyle>
-#include <QDesktopWidget>
 #include <QPainter>
 #include "encrypt.h"
 #include <QMessageBox>
