@@ -92,6 +92,11 @@ void MainWindow::initialState()
     ui->progressBar->hide();
     ui->progressBarLabel->hide();
 
+    // ui->helpPage->setStyleSheet(ui->helpPage->styleSheet().append(QString("background: transparent;")));
+    // ui->scrollArea->setStyleSheet(ui->scrollArea->styleSheet().append(QString("background: transparent;")));
+
+    // setStyleSheet( styleSheet().append(QString("background: transparent;")) );
+
     // settings page
     hideMessageLabels();
 }
