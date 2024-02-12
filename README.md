@@ -28,6 +28,34 @@ Provide instructions and examples for use. Include screenshots as needed.
 
 ![Required image is currently not available](assets/images/screenshot.png)
 
+### 1. App flow
+
+    When starting the app you will be greeted with the home page, accessible only when opening the app. Then you can use the buttons in the side bar to navigate through the app and use its features.
+
+### 2. Side bar
+
+    In the side bar you have 4 buttons:
+    - Database
+    - Fast generate
+    - Settings
+    - Help
+
+### 3. Database
+
+    - In the database page you can visualize your passwords in a table and copy, edit or delete them.
+    - You can add a new password using ‘Auto’ or ‘Manual’ buttons. 
+        1. ‘Auto’ will automatically generate a new complex password that you can save to the database and immediately use it. In advanced section you can customize the way in which the password is generated (how many characters, which characters)
+        2. ‘Manual’ will provide you with a form similar to the one in ‘Auto’, except this time you will have to manually introduce a password.
+
+### 4. Fast generate
+    - In fast generate page you can generate passwords and copy them for immediate use.
+    - These passwords will not be saved to the database.
+
+### 5. Settings
+    
+    In settings you can change your master password. You must enter your current master password and then enter your new password twice. After clicking ‘Change password’ the database will be encrypted with respect to your new master password and accessing the app will require you to remember your new master password. 
+
+
 ## Features
 
 If your project has a lot of features, list them here.
