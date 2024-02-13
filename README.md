@@ -16,21 +16,17 @@ The project provided a holistic learning experience, encompassing programming pr
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Features](#features)
+- [Security Features](#security-features)
 
 ## Installation
 
-- installation instructions to be added
+- installation instructions will be added soon
 
-## Usage
-
-- usage instructions and examples to be added
-
-- image example: 
-
-![Required image is currently not available](assets/images/homepage.png)
+## Usage 
 
 ### 1. App flow
+
+![Required image is currently not available](assets/images/homepage.png)
 
 When starting the app you will be greeted with the home page, accessible only when opening the app. Then you can use the buttons in the side bar to navigate through the app and use its features.
 
