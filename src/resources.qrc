@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/copy-lightblue.svg</file>
+        <file>icons/database.svg</file>
+        <file>icons/delete-lightblue.svg</file>
+        <file>icons/edit-lightblue.svg</file>
+        <file>icons/fast-gen.svg</file>
+        <file>icons/help.svg</file>
+        <file>icons/plus.svg</file>
+        <file>icons/settings.svg</file>
+        <file>icons/chevron-up.svg</file>
+        <file>icons/eye-off-lightblue.svg</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>images/Passcrypt logo.png</file>
+        <file>images/welcome.png</file>
+    </qresource>
+</RCC>

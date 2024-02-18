@@ -1,4 +1,0 @@
-Dark Blue		#34699D			rgb(52, 105, 157)
-Gray Blue		#39495E			rgb(57, 73, 94)
-Light Blue		#99EAFF			rgb(153, 234, 255)
-Black			#051020			rgb(5, 16, 32)
