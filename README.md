@@ -20,7 +20,7 @@ The project provided an awesome learning experience for me, encompassing program
 
 ## Installation
 
-- Download the release from the project page and enjoy the experience of using Passcrypt
+- Download the release from the Releases section and enjoy the experience of using Passcrypt
 
 ## Usage 
 
