@@ -10,36 +10,25 @@ The project provided an awesome learning experience for me, encompassing program
 
 2. Qt Framework Mastery: Working with the Qt Framework provided insights into transforming a basic console-based application into an intuitive GUI-driven program. Learning to leverage Qt's libraries and tools facilitated the creation of a user-friendly interface and streamlined the development process.
 
-3. Security Implementation: The process of securing sensitive information and ensuring robust protection against potential vulnerabilities was a significant learning aspect.
-
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Security Features](#security-features)
+3. Security Implementation: The process of securing sensitive information was a significant learning aspect.
 
 ## Installation
 
-- Download the release from the Releases section and enjoy the experience of using Passcrypt
+- Download the release from the [Releases section](https://github.com/tiutcristian/Passcrypt/releases/) and run Passcrypt.exe.
 
 ## Usage 
 
-### 1. App flow
+### 1. Menu
 
 ![Required image is currently not available](assets/images/homepage.png)
 
-When starting the app you will be greeted with the home page, accessible only when opening the app. Then you can use the buttons in the side bar to navigate through the app and use its features.
-
-### 2. Side bar
-
-In the side bar you have 4 buttons:
-
+When starting the app you will be greeted with the home page, accessible only when opening the app. Then you can use the buttons in the side bar to navigate through the app and use its features:
 - Database
 - Fast generate
 - Settings
 - Help
 
-### 3. Database
+### 2. Database
 
 ![Required image is currently not available](assets/images/database.png)
 
@@ -51,18 +40,14 @@ You can add a new password using ‘Auto’ or ‘Manual’ buttons.
 
 ![Required image is currently not available](assets/images/add.png)
 
-### 4. Fast generate
+The password database is encrypted using stream ciphers from libsodium and is stored locally in a file.
+
+### 3. Fast generate
 In fast generate page you can generate passwords and copy them for immediate use.
 These passwords will not be saved to the database.
 
 ![Required image is currently not available](assets/images/fastgen.png)
 
-### 5. Settings
+### 4. Settings
     
 In settings you can change your master password. You must enter your current master password and then enter your new password twice. After clicking 'Change password' the database will be encrypted with respect to your new master password and accessing the app will require you to remember your new master password.
-
-## Security Features:
-
-### Encryption:
-
-Passcrypt uses the libsodium library for robust encryption, ensuring your data remains secure. The file where the passwords are save is encrypted and decrypted using an XChaCha20 key derivation, provided by the library.
