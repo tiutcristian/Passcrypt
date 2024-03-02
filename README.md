@@ -2,7 +2,7 @@
 
 ## Description
 
-Passcrypt serves as a reliable password management solution meticulously created to safeguard your digital existence. The inspiration behind the development of this application comes from my wish to keep users' valuable information safe. Passcrypt stores passwords in an encrypted format on your local machine, meaning that you have uninterrupted access to your passwords at any time.
+Passcrypt serves as a reliable password management solution meticulously created to safeguard your digital existence. The inspiration behind the development of this application comes from my wish to keep users' valuable information safe. Passcrypt stores passwords in an encrypted format on your local machine, meaning that you have access to your passwords at any time.
 
 The project provided an awesome learning experience for me, encompassing programming proficiency, framework utilization and external libraries incorporation.
 
@@ -10,7 +10,7 @@ The project provided an awesome learning experience for me, encompassing program
 
 2. Qt Framework Mastery: Working with the Qt Framework provided insights into transforming a basic console-based application into an intuitive GUI-driven program. Learning to leverage Qt's libraries and tools facilitated the creation of a user-friendly interface and streamlined the development process.
 
-3. Security Implementation: Developing a password manager required a thorough understanding of cryptographic techniques for data encryption. The process of securing sensitive information and ensuring robust protection against potential vulnerabilities was a significant learning aspect.
+3. Security Implementation: The process of securing sensitive information and ensuring robust protection against potential vulnerabilities was a significant learning aspect.
 
 ## Table of Contents
 
